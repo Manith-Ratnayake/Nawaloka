@@ -1,19 +1,30 @@
-export async function callBackend(message: string) {
-    const backendUrl = process.env.BACKEND_URL;
+export type BackendChatResponse = {
+  message: string;
+};
 
-    if (!backendUrl) {
-        throw new Error("BACKEND_URL is not configured");
-    }
+export async function callBackend(
+  message: string,
+  model: string
+): Promise<BackendChatResponse> {
+  const backendUrl = process.env.BACKEND_URL;
 
-    const response = await fetch(`${backendUrl}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-    });
+  if (!backendUrl) {
+    throw new Error("BACKEND_URL is not configured");
+  }
 
-    if (!response.ok) {
-        throw new Error(`Backend request failed: ${response.status}`);
-    }
+  const response = await fetch(`${backendUrl}/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, model }),
+    cache: "no-store",
+  });
 
-    return response.json();
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Backend request failed: ${response.status} ${errorText}`
+    );
+  }
+
+  return response.json();
 }

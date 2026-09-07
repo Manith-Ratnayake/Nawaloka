@@ -9,6 +9,8 @@ import { after } from "next/server";
 import { createResumableStreamContext } from "resumable-stream";
 import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
+import { allowedModelIds, DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
+import { callBackend } from "@/lib/backend";
 import {
   createStreamId,
   deleteChatById,
@@ -27,10 +29,6 @@ import type { ChatMessage } from "@/lib/types";
 import { convertToUIMessages, generateUUID } from "@/lib/utils";
 import { generateTitleFromUserMessage } from "../../actions";
 import { type PostRequestBody, postRequestBodySchema } from "./schema";
-
-
-import { callBackend } from "@/lib/backend";
-
 
 export const maxDuration = 60;
 
@@ -94,7 +92,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { id, message, messages, selectedVisibilityType } = requestBody;
+    const {
+      id,
+      message,
+      messages,
+      selectedChatModel,
+      selectedVisibilityType,
+    } = requestBody;
 
     const [botIdResult, session] = await Promise.all([
       checkBotId().catch(() => null),
@@ -108,6 +112,10 @@ export async function POST(request: Request) {
     if (!session?.user) {
       return new ChatbotError("unauthorized:chat").toResponse();
     }
+
+    const chatModel = allowedModelIds.has(selectedChatModel)
+      ? selectedChatModel
+      : DEFAULT_CHAT_MODEL;
 
     await checkIpRateLimit(ipAddress(request));
 
@@ -207,9 +215,12 @@ export async function POST(request: Request) {
           throw new Error("No user message was found to send to the backend");
         }
 
-        console.log("RENDER REQUEST:", { message: userMessage });
+        console.log("RENDER REQUEST:", {
+          message: userMessage,
+          model: chatModel,
+        });
 
-        const backendResponse = await callBackend(userMessage);
+        const backendResponse = await callBackend(userMessage, chatModel);
 
         console.log("RENDER RESPONSE:", backendResponse);
 
