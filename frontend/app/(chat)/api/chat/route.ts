@@ -49,6 +49,7 @@ import { type PostRequestBody, postRequestBodySchema } from "./schema";
 
 import { runRagRetrieval } from "@/lib/rag/runRagRetrieval";
 import { buildAnswerPrompt } from "@/lib/rag/answerPrompt";
+import { callBackend } from "@/lib/backend";
 
 export const maxDuration = 60;
 
@@ -276,6 +277,30 @@ export async function POST(request: Request) {
           hasModelActivity = true;
           clearHealthCheckTimer();
         };
+
+
+
+        const userMessage = message?.parts
+            ?.filter((part) => part.type === "text")
+            .map((part) => part.text)
+            .join(" ") ?? "";
+
+        const backendResponse = await callBackend(userMessage);
+
+        console.log("RENDER RESPONSE:", backendResponse);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         let ragResult;
 
