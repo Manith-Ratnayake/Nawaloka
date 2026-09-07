@@ -1,0 +1,20 @@
+dashscope:
+  base_url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+  rerank_url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/reranks"
+
+opensearch:
+  index: "nawaloka"
+
+embedding:
+  model: "text-embedding-v4"
+  dimension: 1024
+
+retrieval:
+  top_k: 7
+
+reranker:
+  model: "qwen3-rerank"
+  top_n: 5
+
+chat:
+  model: "qwen3.7-flash"

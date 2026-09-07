@@ -1,0 +1,3 @@
+firecrawl-py
+lxml
+python-dotenv

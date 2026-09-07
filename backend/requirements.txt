@@ -1,6 +1,8 @@
 fastapi
 uvicorn[standard]
-opensearch-py
-psycopg2-binary
-python-dotenv
 openai
+openai-agents
+opensearch-py
+boto3
+python-dotenv
+requests

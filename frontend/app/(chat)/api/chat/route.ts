@@ -1,33 +1,14 @@
-import { geolocation, ipAddress } from "@vercel/functions";
+import { ipAddress } from "@vercel/functions";
 import {
-  convertToModelMessages,
   createUIMessageStream,
   createUIMessageStreamResponse,
   generateId,
-  isStepCount,
-  streamText,
-  toUIMessageStream,
 } from "ai";
 import { checkBotId } from "botid/server";
 import { after } from "next/server";
 import { createResumableStreamContext } from "resumable-stream";
 import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
-import {
-  allowedModelIds,
-  chatModels,
-  DEFAULT_CHAT_MODEL,
-  getCapabilities,
-  getModelAvailability,
-} from "@/lib/ai/models";
-import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
-import { getLanguageModel } from "@/lib/ai/providers";
-import { createDocument } from "@/lib/ai/tools/create-document";
-import { editDocument } from "@/lib/ai/tools/edit-document";
-import { getWeather } from "@/lib/ai/tools/get-weather";
-import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
-import { updateDocument } from "@/lib/ai/tools/update-document";
-import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
   deleteChatById,
@@ -42,18 +23,16 @@ import {
 import type { DBMessage } from "@/lib/db/schema";
 import { ChatbotError } from "@/lib/errors";
 import { checkIpRateLimit } from "@/lib/ratelimit";
-import type { ChatMessage, WaitingStatusData } from "@/lib/types";
+import type { ChatMessage } from "@/lib/types";
 import { convertToUIMessages, generateUUID } from "@/lib/utils";
 import { generateTitleFromUserMessage } from "../../actions";
 import { type PostRequestBody, postRequestBodySchema } from "./schema";
 
-import { runRagRetrieval } from "@/lib/rag/runRagRetrieval";
-import { buildAnswerPrompt } from "@/lib/rag/answerPrompt";
+
 import { callBackend } from "@/lib/backend";
 
-export const maxDuration = 60;
 
-const HEALTH_CHECK_DELAY_MS = 9000;
+export const maxDuration = 60;
 
 function describeError(error: unknown) {
   if (!(error instanceof Error)) {
@@ -65,8 +44,32 @@ function describeError(error: unknown) {
   return `${error.name}: ${error.message}${cause}`;
 }
 
-function isModelStreamActivity(chunk: { type: string }) {
-  return !["start", "start-step", "finish-step", "finish", "raw"].includes(chunk.type);
+function getMessageText(message?: ChatMessage) {
+  return (
+    message?.parts
+      ?.filter((part) => part.type === "text")
+      .map((part) => part.text)
+      .join(" ")
+      .trim() ?? ""
+  );
+}
+
+function getLatestUserMessageText(messages: ChatMessage[]) {
+  for (let index = messages.length - 1; index >= 0; index -= 1) {
+    const currentMessage = messages[index];
+
+    if (currentMessage.role !== "user") {
+      continue;
+    }
+
+    const text = getMessageText(currentMessage);
+
+    if (text) {
+      return text;
+    }
+  }
+
+  return "";
 }
 
 function getStreamContext() {
@@ -91,7 +94,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { id, message, messages, selectedChatModel, selectedVisibilityType } = requestBody;
+    const { id, message, messages, selectedVisibilityType } = requestBody;
 
     const [botIdResult, session] = await Promise.all([
       checkBotId().catch(() => null),
@@ -105,10 +108,6 @@ export async function POST(request: Request) {
     if (!session?.user) {
       return new ChatbotError("unauthorized:chat").toResponse();
     }
-
-    const chatModel = allowedModelIds.has(selectedChatModel)
-      ? selectedChatModel
-      : DEFAULT_CHAT_MODEL;
 
     await checkIpRateLimit(ipAddress(request));
 
@@ -133,6 +132,7 @@ export async function POST(request: Request) {
       if (chat.userId !== session.user.id) {
         return new ChatbotError("forbidden:chat").toResponse();
       }
+
       messagesFromDb = await getMessagesByChatId({ id });
     } else if (message?.role === "user") {
       await saveChat({
@@ -141,6 +141,7 @@ export async function POST(request: Request) {
         userId: session.user.id,
         visibility: selectedVisibilityType,
       });
+
       titlePromise = generateTitleFromUserMessage({ message });
     }
 
@@ -150,26 +151,27 @@ export async function POST(request: Request) {
       const dbMessages = convertToUIMessages(messagesFromDb);
       const approvalStates = new Map(
         messages.flatMap(
-          (m) =>
-            m.parts
+          (currentMessage) =>
+            currentMessage.parts
               ?.filter(
-                (p: Record<string, unknown>) =>
-                  p.state === "approval-responded" ||
-                  p.state === "output-denied"
+                (part: Record<string, unknown>) =>
+                  part.state === "approval-responded" ||
+                  part.state === "output-denied"
               )
-              .map((p: Record<string, unknown>) => [
-                String(p.toolCallId ?? ""),
-                p,
+              .map((part: Record<string, unknown>) => [
+                String(part.toolCallId ?? ""),
+                part,
               ]) ?? []
         )
       );
 
-      uiMessages = dbMessages.map((msg) => ({
-        ...msg,
-        parts: msg.parts.map((part) => {
+      uiMessages = dbMessages.map((currentMessage) => ({
+        ...currentMessage,
+        parts: currentMessage.parts.map((part) => {
           if ("toolCallId" in part && approvalStates.has(String(part.toolCallId))) {
             return { ...part, ...approvalStates.get(String(part.toolCallId)) };
           }
+
           return part;
         }),
       })) as ChatMessage[];
@@ -179,15 +181,6 @@ export async function POST(request: Request) {
         message as ChatMessage,
       ];
     }
-
-    const { longitude, latitude, city, country } = geolocation(request);
-
-    const requestHints: RequestHints = {
-      city,
-      country,
-      latitude,
-      longitude,
-    };
 
     if (message?.role === "user") {
       await saveMessages({
@@ -204,197 +197,60 @@ export async function POST(request: Request) {
       });
     }
 
-    const modelConfig = chatModels.find((m) => m.id === chatModel);
-    const modelCapabilities = await getCapabilities();
-    const capabilities = modelCapabilities[chatModel];
-    const isReasoningModel = capabilities?.reasoning === true;
-    const supportsTools = capabilities?.tools === true;
-
-    const modelMessages = await convertToModelMessages(uiMessages);
-
     const stream = createUIMessageStream({
       execute: async ({ writer: dataStream }) => {
-        const modelName = modelConfig?.name ?? chatModel;
-        let hasModelActivity = false;
-        let healthCheckTimer: ReturnType<typeof setTimeout> | undefined;
+        const userMessage =
+          getMessageText(message as ChatMessage | undefined) ||
+          getLatestUserMessageText(uiMessages);
 
-        const clearHealthCheckTimer = () => {
-          if (healthCheckTimer) {
-            clearTimeout(healthCheckTimer);
-          }
-        };
+        if (!userMessage) {
+          throw new Error("No user message was found to send to the backend");
+        }
 
-        const writeWaitingStatus = (
-          phase: WaitingStatusData["phase"],
-          messageText: string
-        ) => {
-          if (hasModelActivity && phase !== "thinking") {
-            return;
-          }
-
-          dataStream.write({
-            data: {
-              message: messageText,
-              modelId: chatModel,
-              modelName,
-              phase,
-            },
-            transient: true,
-            type: "data-waiting-status",
-          });
-        };
-
-        writeWaitingStatus("waiting", "Waiting...");
-
-        healthCheckTimer = setTimeout(() => {
-          getModelAvailability(chatModel)
-            .then((availability) => {
-              if (availability === "impacted") {
-                writeWaitingStatus(
-                  "health",
-                  `${modelName} may be slow or unavailable right now...`
-                );
-              } else {
-                writeWaitingStatus("still-waiting", "Still waiting...");
-              }
-            })
-            .catch(() => {
-              writeWaitingStatus("still-waiting", "Still waiting...");
-            });
-        }, HEALTH_CHECK_DELAY_MS);
-
-        const markModelActive = () => {
-          if (hasModelActivity) {
-            return;
-          }
-
-          hasModelActivity = true;
-          clearHealthCheckTimer();
-          writeWaitingStatus("thinking", "Thinking...");
-        };
-
-        const stopWaitingStatus = () => {
-          hasModelActivity = true;
-          clearHealthCheckTimer();
-        };
-
-
-
-        const userMessage = message?.parts
-            ?.filter((part) => part.type === "text")
-            .map((part) => part.text)
-            .join(" ") ?? "";
+        console.log("RENDER REQUEST:", { message: userMessage });
 
         const backendResponse = await callBackend(userMessage);
 
         console.log("RENDER RESPONSE:", backendResponse);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        let ragResult;
-
-        try {
-          console.log("RAG START", { chatModel });
-          ragResult = await runRagRetrieval({
-            message,
-            chatModel,
-          });
-          console.log("RAG COMPLETE", {
-            chatModel,
-            retrievedResults: ragResult.rerankedResults?.length ?? 0,
-          });
-        } catch (error) {
-          stopWaitingStatus();
-          console.error("RAG PIPELINE ERROR:", error);
-          throw error;
+        if (
+          !backendResponse ||
+          typeof backendResponse.message !== "string" ||
+          !backendResponse.message.trim()
+        ) {
+          throw new Error(
+            "Backend returned an invalid response. Expected { message: string }"
+          );
         }
 
-        const result = streamText({
-          activeTools:
-            isReasoningModel && !supportsTools
-              ? []
-              : [
-                  "getWeather",
-                  "createDocument",
-                  "editDocument",
-                  "updateDocument",
-                  "requestSuggestions",
-                ],
-          instructions: buildAnswerPrompt(ragResult.context),
-          messages: modelMessages,
-          model: getLanguageModel(chatModel),
-          onAbort() {
-            stopWaitingStatus();
-          },
-          onChunk({ chunk }) {
-            if (isModelStreamActivity(chunk)) {
-              markModelActive();
-            }
-          },
-          onEnd() {
-            stopWaitingStatus();
-          },
-          onError({ error }) {
-            stopWaitingStatus();
-            console.error("FINAL MODEL STREAM ERROR:", error);
-          },
-          providerOptions: {
-            ...(modelConfig?.gatewayOrder && {
-              gateway: { order: modelConfig.gatewayOrder },
-            }),
-            ...(modelConfig?.reasoningEffort && {
-              openai: { reasoningEffort: modelConfig.reasoningEffort },
-            }),
-          },
-          stopWhen: isStepCount(5),
-          telemetry: {
-            functionId: "stream-text",
-            isEnabled: isProductionEnvironment,
-          },
-          tools: {
-            createDocument: createDocument({
-              dataStream,
-              modelId: chatModel,
-              session,
-            }),
-            editDocument: editDocument({ dataStream, session }),
-            getWeather,
-            requestSuggestions: requestSuggestions({
-              dataStream,
-              modelId: chatModel,
-              session,
-            }),
-            updateDocument: updateDocument({
-              dataStream,
-              modelId: chatModel,
-              session,
-            }),
-          },
+        const textId = generateUUID();
+
+        dataStream.write({
+          type: "text-start",
+          id: textId,
         });
 
-        dataStream.merge(
-          toUIMessageStream({
-            sendReasoning: isReasoningModel,
-            stream: result.stream,
-          })
-        );
+        dataStream.write({
+          type: "text-delta",
+          id: textId,
+          delta: backendResponse.message,
+        });
+
+        dataStream.write({
+          type: "text-end",
+          id: textId,
+        });
 
         if (titlePromise) {
           try {
             const title = await titlePromise;
-            dataStream.write({ data: title, type: "data-chat-title" });
-            updateChatTitleById({ chatId: id, title });
+
+            dataStream.write({
+              data: title,
+              type: "data-chat-title",
+            });
+
+            await updateChatTitleById({ chatId: id, title });
           } catch (error) {
             console.error("CHAT TITLE ERROR:", error);
           }
@@ -404,13 +260,15 @@ export async function POST(request: Request) {
       onEnd: async ({ messages: finishedMessages }) => {
         if (isToolApprovalFlow) {
           await Promise.all(
-            finishedMessages.map(async (finishedMsg) => {
-              const existingMsg = uiMessages.find((m) => m.id === finishedMsg.id);
+            finishedMessages.map(async (finishedMessage) => {
+              const existingMessage = uiMessages.find(
+                (currentMessage) => currentMessage.id === finishedMessage.id
+              );
 
-              if (existingMsg) {
+              if (existingMessage) {
                 await updateMessage({
-                  id: finishedMsg.id,
-                  parts: finishedMsg.parts,
+                  id: finishedMessage.id,
+                  parts: finishedMessage.parts,
                 });
                 return;
               }
@@ -421,9 +279,9 @@ export async function POST(request: Request) {
                     attachments: [],
                     chatId: id,
                     createdAt: new Date(),
-                    id: finishedMsg.id,
-                    parts: finishedMsg.parts,
-                    role: finishedMsg.role,
+                    id: finishedMessage.id,
+                    parts: finishedMessage.parts,
+                    role: finishedMessage.role,
                   },
                 ],
               });
@@ -464,7 +322,11 @@ export async function POST(request: Request) {
 
           if (streamContext) {
             const streamId = generateId();
-            await createStreamId({ chatId: id, streamId });
+
+            await createStreamId({
+              chatId: id,
+              streamId,
+            });
 
             await streamContext.createNewResumableStream(
               streamId,
@@ -488,15 +350,6 @@ export async function POST(request: Request) {
 
     if (error instanceof ChatbotError) {
       return error.toResponse();
-    }
-
-    if (
-      error instanceof Error &&
-      error.message?.includes(
-        "AI Gateway requires a valid credit card on file to service requests"
-      )
-    ) {
-      return new ChatbotError("bad_request:activate_gateway").toResponse();
     }
 
     return new ChatbotError("offline:chat").toResponse();
