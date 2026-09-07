@@ -1,0 +1,4 @@
+.env
+chunk_output/
+__pycache__/
+*.pyc
