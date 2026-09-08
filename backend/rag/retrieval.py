@@ -1,7 +1,7 @@
 import os
+from urllib.parse import urlparse
 
-import boto3
-from opensearchpy import AWSV4SignerAuth, OpenSearch, RequestsHttpConnection
+from opensearchpy import OpenSearch, RequestsHttpConnection
 
 
 OPENSEARCH_INDEX = os.getenv("OPENSEARCH_INDEX", "nawaloka")
@@ -9,26 +9,23 @@ RETRIEVAL_TOP_K = int(os.getenv("RETRIEVAL_TOP_K", "20"))
 
 
 def get_opensearch_client() -> OpenSearch:
-    host = os.getenv("OPENSEARCH_HOST")
+    url = os.getenv("OPENSEARCH_HOST")
 
-    if not host:
+    if not url:
         raise RuntimeError("OPENSEARCH_HOST is not set")
 
-    host = host.removeprefix("https://").removeprefix("http://").rstrip("/")
-    region = os.getenv("AWS_REGION", "ap-south-1")
+    parsed = urlparse(url)
 
-    session = boto3.Session()
-    credentials = session.get_credentials()
+    if not parsed.hostname:
+        raise RuntimeError("Invalid OPENSEARCH_HOST")
 
-    if credentials is None:
-        raise RuntimeError("AWS credentials could not be loaded")
-
-    auth = AWSV4SignerAuth(credentials, region, "aoss")
+    if not parsed.username or not parsed.password:
+        raise RuntimeError("OPENSEARCH_HOST must contain Bonsai username and password")
 
     return OpenSearch(
-        hosts=[{"host": host, "port": 443}],
-        http_auth=auth,
-        use_ssl=True,
+        hosts=[{"host": parsed.hostname, "port": parsed.port or 443}],
+        http_auth=(parsed.username, parsed.password),
+        use_ssl=parsed.scheme == "https",
         verify_certs=True,
         connection_class=RequestsHttpConnection,
         timeout=30,

@@ -28,5 +28,5 @@ def root():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-    answer = run_rag(request.message)
-    return {"message": answer}
+    # answer = run_rag(request.message)
+    return {"message": request}
