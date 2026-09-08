@@ -158,7 +158,7 @@ def _vector_search_sync(queries: list[str]) -> tuple[str, dict]:
             per_query_rerank_debug.append({"query": query, "reranked_count": 0, "chunks": []})
             continue
 
-        reranked_for_query = rerank_chunks(query, chunks, top_n=per_subquery_top_n)
+        reranked_for_query = chunks[:per_subquery_top_n]
 
         per_query_rerank_debug.append({
             "query": query,
