@@ -88,53 +88,90 @@ async def prepare_vector_queries(question: str) -> tuple[list[str], dict]:
 
 # ── Step 3a: Vector search ───────────────────────────────────────────
 
+def _chunk_preview(chunk: dict) -> dict:
+    """Compact, UI-friendly view of a chunk (used at retrieval and rerank stages)."""
+    source = chunk.get("_source", {})
+    return {
+        "id": chunk.get("_id"),
+        "rerank_score": chunk.get("rerank_score"),  # None if not reranked yet
+        "source": source.get("url") or source.get("page") or source.get("page_name") or "",
+        "content_preview": (
+            source.get("source_text")
+            or source.get("content")
+            or source.get("text")
+            or ""
+        )[:200],
+    }
+
+
 def _vector_search_sync(queries: list[str]) -> tuple[str, dict]:
     """Returns (context_string, debug_info)"""
-    all_chunks: dict[str, dict] = {}
+    per_query_chunks: dict[str, list[dict]] = {}
     per_query_debug = []
 
     for query in queries:
         query_vector = create_embedding(query)
         chunks = retrieve_chunks(query, query_vector)
+        per_query_chunks[query] = chunks
 
         per_query_debug.append({
             "query": query,
             "chunks_retrieved": len(chunks),
-            "chunk_ids": [c.get("_id") for c in chunks],
+            "chunks": [_chunk_preview(c) for c in chunks],
         })
 
-        for chunk in chunks:
-            doc_id = chunk["_id"]
-            if doc_id not in all_chunks:
-                all_chunks[doc_id] = chunk
+    total_unique_before_rerank = len({
+        chunk["_id"] for chunks in per_query_chunks.values() for chunk in chunks
+    })
 
     debug = {
-        "total_unique_chunks_before_rerank": len(all_chunks),
+        "total_unique_chunks_before_rerank": total_unique_before_rerank,
         "per_query": per_query_debug,
     }
 
-    if not all_chunks:
+    if total_unique_before_rerank == 0:
         debug["reranked_chunks"] = []
         debug["context_length"] = 0
         return "", debug
 
-    combined_query = " ".join(queries)
-    reranked = rerank_chunks(combined_query, list(all_chunks.values()))
+    # Rerank each subquery's chunks against ITS OWN query text, not a
+    # pooled set scored against every subquery's terms mashed together.
+    # Otherwise one subquery's language can dilute relevance scoring for
+    # chunks that only answer a different subquery, and that subquery's
+    # best chunks get pushed out of the final top-N entirely.
+    per_subquery_top_n = max(2, -(-settings.rerank_top_n // len(queries)))  # ceil, floor of 2
 
-    debug["reranked_chunks"] = [
-        {
-            "id": r.get("_id"),
-            "rerank_score": r.get("rerank_score"),
-            "source": r.get("_source", {}).get("url") or r.get("_source", {}).get("page") or "",
-            "content_preview": (
-                r.get("_source", {}).get("source_text")
-                or r.get("_source", {}).get("content")
-                or r.get("_source", {}).get("text")
-                or ""
-            )[:200],
-        }
-        for r in reranked
-    ]
+    best_by_id: dict[str, dict] = {}
+    per_query_rerank_debug = []
+
+    for query, chunks in per_query_chunks.items():
+        if not chunks:
+            per_query_rerank_debug.append({"query": query, "reranked_count": 0, "chunks": []})
+            continue
+
+        reranked_for_query = rerank_chunks(query, chunks, top_n=per_subquery_top_n)
+
+        per_query_rerank_debug.append({
+            "query": query,
+            "reranked_count": len(reranked_for_query),
+            "chunks": [_chunk_preview(c) for c in reranked_for_query],
+        })
+
+        for chunk in reranked_for_query:
+            doc_id = chunk["_id"]
+            existing = best_by_id.get(doc_id)
+            # A chunk can win for more than one subquery — keep its best score.
+            if existing is None or (chunk.get("rerank_score") or 0) > (existing.get("rerank_score") or 0):
+                best_by_id[doc_id] = chunk
+
+    reranked = sorted(
+        best_by_id.values(),
+        key=lambda c: c.get("rerank_score") or 0,
+        reverse=True,
+    )
+
+    debug["per_query_rerank"] = per_query_rerank_debug
+    debug["reranked_chunks"] = [_chunk_preview(r) for r in reranked]
 
     context = build_context(reranked) if reranked else ""
     debug["context_length"] = len(context)
@@ -180,11 +217,12 @@ async def sql_search(question: str) -> tuple[str, dict]:
         return result, debug
 
     except Exception as first_error:
-        debug["attempts"].append({"sql": None, "error": str(first_error)})
+        first_error_message = str(first_error)
+        debug["attempts"].append({"sql": None, "error": first_error_message})
 
     # Retry once
     try:
-        sql = await _generate_sql(question, error_context=str(first_error))
+        sql = await _generate_sql(question, error_context=first_error_message)
         rows = await asyncio.to_thread(execute_select, sql)
         attempt = {"sql": sql, "error": None, "row_count": len(rows)}
         debug["attempts"].append(attempt)

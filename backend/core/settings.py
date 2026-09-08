@@ -34,7 +34,7 @@ class Settings:
     query_agent_model: str = os.getenv("QUERY_AGENT_MODEL", config_value("query_agent", "model", "qwen3.7-flash"))
     query_agent_max_subqueries: int = int(os.getenv("QUERY_AGENT_MAX_SUBQUERIES", config_value("query_agent", "max_subqueries", 4)))
     sql_agent_model: str = os.getenv("SQL_AGENT_MODEL", config_value("sql_agent", "model", "qwen3.7-flash"))
-    database_url: str | None = os.getenv("DATABASE_URL")
+    db_sql_host: str | None = os.getenv("DB_SQL_HOST")
 
 
 settings = Settings()

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-type RerankedChunk = {
+type ChunkPreview = {
   id?: string;
-  rerank_score?: number;
+  rerank_score?: number | null;
   source?: string;
   content_preview?: string;
 };
@@ -13,13 +13,20 @@ type RerankedChunk = {
 type PerQueryDebug = {
   query: string;
   chunks_retrieved: number;
-  chunk_ids: string[];
+  chunks?: ChunkPreview[];
+};
+
+type PerQueryRerankDebug = {
+  query: string;
+  reranked_count: number;
+  chunks?: ChunkPreview[];
 };
 
 type VectorStepDebug = {
   total_unique_chunks_before_rerank?: number;
   per_query?: PerQueryDebug[];
-  reranked_chunks?: RerankedChunk[];
+  per_query_rerank?: PerQueryRerankDebug[];
+  reranked_chunks?: ChunkPreview[];
   context_length?: number;
 };
 
@@ -58,19 +65,90 @@ type DebugTrace = {
   };
 };
 
-function Section({
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <span className={cn("inline-block transition-transform", open && "rotate-180")}>
+      ▾
+    </span>
+  );
+}
+
+function CollapsibleSection({
   title,
+  meta,
+  defaultOpen = false,
+  nested = false,
   children,
 }: {
   title: string;
+  meta?: string;
+  defaultOpen?: boolean;
+  nested?: boolean;
   children: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(defaultOpen);
+
   return (
-    <div className="space-y-1.5 border-border/50 border-t pt-2 first:border-t-0 first:pt-0">
-      <div className="font-medium text-[11px] text-muted-foreground uppercase tracking-wide">
-        {title}
-      </div>
-      {children}
+    <div
+      className={cn(
+        "overflow-hidden rounded-md border border-border/40",
+        nested ? "bg-background/40" : "bg-background/60"
+      )}
+    >
+      <button
+        className="flex w-full items-center justify-between px-2.5 py-1.5 text-left text-muted-foreground text-xs hover:text-foreground"
+        onClick={() => setOpen((v) => !v)}
+        type="button"
+      >
+        <span className="flex min-w-0 items-baseline gap-2">
+          <span className="truncate font-medium">{title}</span>
+          {meta && (
+            <span className="shrink-0 text-[10px] text-muted-foreground/80">
+              {meta}
+            </span>
+          )}
+        </span>
+        <Chevron open={open} />
+      </button>
+
+      {open && (
+        <div className="space-y-1.5 border-border/40 border-t px-2.5 py-2">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ChunkList({ chunks }: { chunks?: ChunkPreview[] }) {
+  if (!chunks || chunks.length === 0) {
+    return <div className="text-muted-foreground">No chunks.</div>;
+  }
+
+  return (
+    <div className="space-y-1.5">
+      {chunks.map((chunk, i) => (
+        <div
+          className="rounded border border-border/40 bg-background/60 p-1.5"
+          key={chunk.id ?? i}
+        >
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="truncate text-foreground/80">
+              {chunk.source || chunk.id}
+            </span>
+            {typeof chunk.rerank_score === "number" && (
+              <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] text-foreground/80">
+                score {chunk.rerank_score.toFixed(3)}
+              </span>
+            )}
+          </div>
+          {chunk.content_preview && (
+            <div className="mt-0.5 line-clamp-2 text-muted-foreground">
+              {chunk.content_preview}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
@@ -86,22 +164,20 @@ export function DebugPanel({ data }: { data: unknown }) {
   const answerStats = trace?.step4_answer;
 
   return (
-    <div className="w-[min(100%,520px)] overflow-hidden rounded-lg border border-border/50 bg-muted/30 text-[12px]">
+    <div className="w-[min(100%,560px)] overflow-hidden rounded-lg border border-border/50 bg-muted/30 text-[12px]">
       <button
         className="flex w-full items-center justify-between px-3 py-2 text-left text-muted-foreground text-xs hover:text-foreground"
         onClick={() => setOpen((v) => !v)}
         type="button"
       >
         <span>Pipeline trace</span>
-        <span className={cn("transition-transform", open && "rotate-180")}>
-          ▾
-        </span>
+        <Chevron open={open} />
       </button>
 
       {open && (
-        <div className="space-y-3 border-border/50 border-t px-3 py-2.5">
+        <div className="space-y-2 border-border/50 border-t px-3 py-2.5">
           {plan && (
-            <Section title="Router">
+            <CollapsibleSection defaultOpen title="Router">
               <div className="text-foreground/90">
                 use_vector: {String(plan.use_vector)} · use_sql:{" "}
                 {String(plan.use_sql)}
@@ -116,11 +192,15 @@ export function DebugPanel({ data }: { data: unknown }) {
                   sql_question: “{plan.sql_question}”
                 </div>
               )}
-            </Section>
+            </CollapsibleSection>
           )}
 
           {subqueries && subqueries.length > 0 && (
-            <Section title="Query agent — subqueries">
+            <CollapsibleSection
+              defaultOpen
+              meta={`${subqueries.length}`}
+              title="Query agent — subqueries"
+            >
               <ul className="list-disc space-y-0.5 pl-4">
                 {subqueries.map((q) => (
                   <li className="text-foreground/90" key={q}>
@@ -128,55 +208,56 @@ export function DebugPanel({ data }: { data: unknown }) {
                   </li>
                 ))}
               </ul>
-            </Section>
+            </CollapsibleSection>
           )}
 
-          {vectorDebug && (
-            <Section title="Vector search">
-              <div className="text-muted-foreground">
-                {vectorDebug.total_unique_chunks_before_rerank ?? 0} unique
-                chunks retrieved before rerank
-              </div>
-
-              {vectorDebug.per_query?.map((pq) => (
-                <div className="pl-2 text-muted-foreground" key={pq.query}>
-                  “{pq.query}” → {pq.chunks_retrieved} chunks
-                </div>
+          {vectorDebug?.per_query && vectorDebug.per_query.length > 0 && (
+            <CollapsibleSection
+              meta={`${vectorDebug.total_unique_chunks_before_rerank ?? 0} unique`}
+              title="Retrieval"
+            >
+              {vectorDebug.per_query.map((pq) => (
+                <CollapsibleSection
+                  key={pq.query}
+                  meta={`${pq.chunks_retrieved} chunks`}
+                  nested
+                  title={pq.query}
+                >
+                  <ChunkList chunks={pq.chunks} />
+                </CollapsibleSection>
               ))}
-
-              {vectorDebug.reranked_chunks &&
-                vectorDebug.reranked_chunks.length > 0 && (
-                  <div className="space-y-1.5 pt-1">
-                    <div className="text-muted-foreground">
-                      Reranked (top {vectorDebug.reranked_chunks.length}):
-                    </div>
-                    {vectorDebug.reranked_chunks.map((chunk, i) => (
-                      <div
-                        className="rounded border border-border/40 bg-background/60 p-1.5"
-                        key={chunk.id ?? i}
-                      >
-                        <div className="flex justify-between text-foreground/80">
-                          <span className="truncate">
-                            {chunk.source || chunk.id}
-                          </span>
-                          <span className="shrink-0 text-muted-foreground">
-                            score: {chunk.rerank_score?.toFixed(3)}
-                          </span>
-                        </div>
-                        {chunk.content_preview && (
-                          <div className="mt-0.5 line-clamp-2 text-muted-foreground">
-                            {chunk.content_preview}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-            </Section>
+            </CollapsibleSection>
           )}
+
+          {vectorDebug?.per_query_rerank &&
+            vectorDebug.per_query_rerank.length > 0 && (
+              <CollapsibleSection title="Reranking (per subquery)">
+                {vectorDebug.per_query_rerank.map((pq) => (
+                  <CollapsibleSection
+                    key={pq.query}
+                    meta={`${pq.reranked_count} kept`}
+                    nested
+                    title={pq.query}
+                  >
+                    <ChunkList chunks={pq.chunks} />
+                  </CollapsibleSection>
+                ))}
+              </CollapsibleSection>
+            )}
+
+          {vectorDebug?.reranked_chunks &&
+            vectorDebug.reranked_chunks.length > 0 && (
+              <CollapsibleSection
+                defaultOpen
+                meta={`${vectorDebug.reranked_chunks.length} chunks`}
+                title="Final chunks used for answer"
+              >
+                <ChunkList chunks={vectorDebug.reranked_chunks} />
+              </CollapsibleSection>
+            )}
 
           {sqlDebug && (
-            <Section title="SQL search">
+            <CollapsibleSection title="SQL search">
               <div className="text-muted-foreground">
                 result: {sqlDebug.result ?? "n/a"}
               </div>
@@ -200,17 +281,17 @@ export function DebugPanel({ data }: { data: unknown }) {
                   )}
                 </div>
               ))}
-            </Section>
+            </CollapsibleSection>
           )}
 
           {answerStats && (
-            <Section title="Answer">
+            <CollapsibleSection defaultOpen title="Answer">
               <div className="text-muted-foreground">
                 vector context: {answerStats.vector_context_chars ?? 0} chars
                 · sql context: {answerStats.sql_context_chars ?? 0} chars ·
                 answer: {answerStats.answer_chars ?? 0} chars
               </div>
-            </Section>
+            </CollapsibleSection>
           )}
 
           <details className="pt-1">

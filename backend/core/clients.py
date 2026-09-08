@@ -51,11 +51,11 @@ def get_opensearch_client() -> OpenSearch:
 
 
 def sqlalchemy_url() -> str:
-    if not settings.database_url:
-        raise RuntimeError("DATABASE_URL is not set")
-    if settings.database_url.startswith("postgresql://"):
-        return settings.database_url.replace("postgresql://", "postgresql+psycopg://", 1)
-    return settings.database_url
+    if not settings.db_sql_host:
+        raise RuntimeError("DB_SQL_HOST is not set")
+    if settings.db_sql_host.startswith("postgresql://"):
+        return settings.db_sql_host.replace("postgresql://", "postgresql+psycopg://", 1)
+    return settings.db_sql_host
 
 
 @lru_cache(maxsize=1)
