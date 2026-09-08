@@ -19,6 +19,7 @@ def config_value(section: str, key: str, default=None):
 
 @dataclass(frozen=True)
 class Settings:
+    cohere_api_key: str | None = os.getenv("COHERE")
     ai_gateway_api_key: str | None = os.getenv("AI_GATEWAY_API_KEY")
     ai_gateway_base_url: str = os.getenv("AI_GATEWAY_BASE_URL", "https://ai-gateway.vercel.sh/v1")
     dashscope_api_key: str | None = os.getenv("DASHSCOPE_API_KEY")
