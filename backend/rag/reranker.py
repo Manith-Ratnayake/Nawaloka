@@ -55,10 +55,14 @@ def rerank_chunks(query: str, search_results: list[dict], top_n: int | None = No
             headers={"Authorization": f"Bearer {settings.dashscope_api_key}", "Content-Type": "application/json"},
             json={
                 "model": settings.rerank_model,
-                "query": query.strip(),
-                "documents": documents,
-                "top_n": top_n,
-                "instruct": "Given a web search query, retrieve relevant passages that answer the query.",
+                "input": {                          # ← wrap in "input"
+                    "query": query.strip(),
+                    "documents": documents,
+                },
+                "parameters": {                     # ← move top_n here
+                    "top_n": top_n,
+                    "return_documents": False,
+                },
             },
             timeout=30,
         )
