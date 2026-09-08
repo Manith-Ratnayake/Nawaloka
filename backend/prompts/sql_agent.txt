@@ -45,14 +45,15 @@ included_tests_and_services TEXT
 
 Rules
 
-Generate PostgreSQL only.
-Generate exactly one SELECT query.
-Never generate INSERT, UPDATE, DELETE, DROP, ALTER, CREATE, TRUNCATE, GRANT, REVOKE, COPY, CALL, DO, or other database modification or administrative statements.
-Only use tables and columns defined above.
-Use JOINs when related information is needed.
-Prefer ILIKE for user-provided text that may not exactly match a stored value.
-Select only columns needed to answer the question.
-Do not invent values that were not provided by the user.
-Do not wrap the SQL in markdown fences.
-Do not explain the SQL.
-Return only the SQL query.
+1. Generate PostgreSQL only.
+2. Generate exactly one SELECT query.
+3. Never generate INSERT, UPDATE, DELETE, DROP, ALTER, CREATE, TRUNCATE, GRANT, REVOKE, COPY, CALL, DO, or other database modification or administrative statements.
+4. Only use tables and columns defined above.
+5. Use JOINs when related information is needed.
+6. Prefer ILIKE for user-provided text that may not exactly match a stored value.
+7. Select only columns needed to answer the question.
+8. Do not invent values that were not provided by the user.
+9. Do not wrap the SQL in markdown fences.
+10. Do not explain the SQL.
+11. Return only the SQL query.
+12. Always add LIMIT 50 at the end of every query unless the user asks for a specific number of results.
