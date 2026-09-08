@@ -18,10 +18,16 @@ app.add_middleware(
 )
 
 
+class HistoryMessage(BaseModel):
+    role: str
+    content: str
+
+
 class ChatRequest(BaseModel):
     message: str
     model: str
     session_id: str | None = None
+    history: list[HistoryMessage] = []
 
 
 @app.get("/")
@@ -33,7 +39,13 @@ def root():
 async def chat(request: ChatRequest):
     async def event_stream():
         try:
-            async for event in run_pipeline_stream(request.message, request.model):
+            history = [{"role": m.role, "content": m.content} for m in request.history]
+            async for event in run_pipeline_stream(
+                request.message,
+                request.model,
+                session_id=request.session_id,
+                history=history,
+            ):
                 if event.get("phase") == "done":
                     yield json.dumps({
                         "phase": "done",

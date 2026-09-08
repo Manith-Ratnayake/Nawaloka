@@ -10,7 +10,7 @@ import { createResumableStreamContext } from "resumable-stream";
 import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import { allowedModelIds, DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
-import { callBackend } from "@/lib/backend";
+import { callBackend, type HistoryMessage } from "@/lib/backend";
 import {
   createStreamId,
   deleteChatById,
@@ -228,6 +228,16 @@ export async function POST(request: Request) {
           model: chatModel,
         });
 
+        // Build last 4 turns of history (excluding the current message)
+        const history: HistoryMessage[] = uiMessages
+          .slice(0, -1)          // drop the current user message
+          .slice(-4)             // last 4 messages max
+          .flatMap((m) => {
+            const text = getMessageText(m);
+            if (!text) return [];
+            return [{ role: m.role as "user" | "assistant", content: text }];
+          });
+
         const backendResponse = await callBackend(
           userMessage,
           chatModel,
@@ -243,7 +253,9 @@ export async function POST(request: Request) {
               transient: true,
               type: "data-waiting-status",
             });
-          }
+          },
+          history,
+          session?.user?.id,
         );
 
         console.log("RENDER RESPONSE:", backendResponse);

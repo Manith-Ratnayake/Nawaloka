@@ -2,6 +2,8 @@ import asyncio
 import json
 import re
 
+from mem0 import MemoryClient
+
 from core.clients import get_dashscope_async_client, get_gateway_async_client
 from core.prompts import load_prompt
 from core.settings import settings
@@ -15,6 +17,10 @@ from rag.retrieval import retrieve_chunks
 
 # ── Seed FAQ cache on startup ─────────────────────────────────────────
 seed_faqs(embedder=create_embedding)
+
+# ── mem0 client ───────────────────────────────────────────────────────
+mem0 = MemoryClient()   # reads MEM0_API_KEY from env automatically
+MEM0_USER_ID = "nawaloka_global"  # single shared user — good enough for now
 
 
 # ── LLM helpers ──────────────────────────────────────────────────────
@@ -139,11 +145,6 @@ def _vector_search_sync(queries: list[str]) -> tuple[str, dict]:
         debug["context_length"] = 0
         return "", debug
 
-    # Rerank each subquery's chunks against ITS OWN query text, not a
-    # pooled set scored against every subquery's terms mashed together.
-    # Otherwise one subquery's language can dilute relevance scoring for
-    # chunks that only answer a different subquery, and that subquery's
-    # best chunks get pushed out of the final top-N entirely.
     per_subquery_top_n = max(2, -(-settings.rerank_top_n // len(queries)))  # ceil, floor of 2
 
     best_by_id: dict[str, dict] = {}
@@ -165,7 +166,6 @@ def _vector_search_sync(queries: list[str]) -> tuple[str, dict]:
         for chunk in reranked_for_query:
             doc_id = chunk["_id"]
             existing = best_by_id.get(doc_id)
-            # A chunk can win for more than one subquery — keep its best score.
             if existing is None or (chunk.get("rerank_score") or 0) > (existing.get("rerank_score") or 0):
                 best_by_id[doc_id] = chunk
 
@@ -249,8 +249,26 @@ async def sql_search(question: str) -> tuple[str, dict]:
 
 # ── Step 4: Answer ───────────────────────────────────────────────────
 
-async def generate_answer(message: str, model_id: str, vector_context: str, sql_context: str) -> str:
-    client = get_dashscope_async_client()  # was get_gateway_async_client()
+def _format_history(history: list[dict]) -> str:
+    """Format last 4 messages as readable conversation context."""
+    if not history:
+        return ""
+    lines = []
+    for m in history[-4:]:
+        role = "User" if m["role"] == "user" else "Assistant"
+        lines.append(f"{role}: {m['content']}")
+    return "\n".join(lines)
+
+
+async def generate_answer(
+    message: str,
+    model_id: str,
+    vector_context: str,
+    sql_context: str,
+    history: list[dict],
+    memory_context: str,
+) -> str:
+    client = get_dashscope_async_client()
 
     evidence_parts = []
     if vector_context:
@@ -260,26 +278,70 @@ async def generate_answer(message: str, model_id: str, vector_context: str, sql_
 
     evidence = "\n\n".join(evidence_parts) if evidence_parts else "No information was found from either source."
 
-    user_input = f"User question:\n{message}\n\nEvidence:\n{evidence}"
+    # Build user input — history first so the model has full context
+    sections = []
+
+    history_text = _format_history(history)
+    if history_text:
+        sections.append(f"Recent conversation:\n{history_text}")
+
+    if memory_context:
+        sections.append(f"What I know about this user:\n{memory_context}")
+
+    sections.append(f"Current question:\n{message}")
+    sections.append(f"Evidence:\n{evidence}")
+
+    user_input = "\n\n".join(sections)
+
     return await llm_call(client, "qwen-plus", load_prompt("answer.txt"), user_input)
+
+
+# ── mem0 helpers (sync, run in thread) ───────────────────────────────
+
+def _mem0_search(query: str, user_id: str) -> str:
+    """Returns a short string of relevant memories, or empty string."""
+    try:
+        results = mem0.search(query=query, user_id=user_id, limit=4)
+        if not results:
+            return ""
+        return "\n".join(r["memory"] for r in results if r.get("memory"))
+    except Exception:
+        return ""  # never crash the pipeline over memory
+
+
+def _mem0_add(user_message: str, assistant_message: str, user_id: str) -> None:
+    """Fire-and-forget: store the turn in mem0."""
+    try:
+        mem0.add(
+            messages=[
+                {"role": "user", "content": user_message},
+                {"role": "assistant", "content": assistant_message},
+            ],
+            user_id=user_id,
+        )
+    except Exception:
+        pass  # never crash the pipeline over memory
 
 
 # ── Pipeline ─────────────────────────────────────────────────────────
 
-async def run_pipeline_stream(message: str, model_id: str):
-    """Async generator: yields a status dict before each phase runs, then a
-    final {"phase": "done", "answer": ..., "debug": ...} event.
-
-    Callers that just want the final result can consume this to completion
-    and take the last "done" event (see run_pipeline below).
-    """
+async def run_pipeline_stream(
+    message: str,
+    model_id: str,
+    session_id: str | None = None,
+    history: list[dict] | None = None,
+):
+    """Async generator: yields status events then a final done event."""
     message = message.strip()
     model_id = model_id.strip()
+    history = history or []
+
     if not message:
         raise ValueError("Message cannot be empty")
     if not model_id:
         raise ValueError("Model cannot be empty")
 
+    user_id = session_id or MEM0_USER_ID
     debug_trace = {}
 
     # ── Cache check ───────────────────────────────────────────────────
@@ -292,7 +354,11 @@ async def run_pipeline_stream(message: str, model_id: str):
             "debug": {"cache": "hit"},
         }
         return
-    # ── End cache check ───────────────────────────────────────────────
+
+    # ── mem0 search (parallel with routing — doesn't slow things down) ─
+    memory_task = asyncio.create_task(
+        asyncio.to_thread(_mem0_search, message, user_id)
+    )
 
     # Step 1: Route
     yield {
@@ -372,6 +438,10 @@ async def run_pipeline_stream(message: str, model_id: str):
 
     debug_trace["step3_search"] = step3_debug
 
+    # Collect memory (should be done by now — it ran in parallel with steps 1–3)
+    memory_context = await memory_task
+    debug_trace["mem0"] = {"memory_context": memory_context or "(none)"}
+
     # Step 4: Generate answer
     yield {
         "phase": "answer",
@@ -379,12 +449,24 @@ async def run_pipeline_stream(message: str, model_id: str):
         "modelId": "qwen-plus",
         "modelName": "Answer agent",
     }
-    answer = await generate_answer(message, model_id, vector_context, sql_context)
+    answer = await generate_answer(
+        message=message,
+        model_id=model_id,
+        vector_context=vector_context,
+        sql_context=sql_context,
+        history=history,
+        memory_context=memory_context,
+    )
     debug_trace["step4_answer"] = {
         "vector_context_chars": len(vector_context),
         "sql_context_chars": len(sql_context),
         "answer_chars": len(answer),
     }
+
+    # Store this turn in mem0 — fire and forget, don't block the response
+    asyncio.create_task(
+        asyncio.to_thread(_mem0_add, message, answer, user_id)
+    )
 
     yield {
         "phase": "done",
@@ -394,8 +476,7 @@ async def run_pipeline_stream(message: str, model_id: str):
 
 
 async def run_pipeline(message: str, model_id: str) -> dict:
-    """Backward-compatible wrapper (used by scripts/tests): consumes the
-    stream and returns just the final result."""
+    """Backward-compatible wrapper: consumes the stream and returns the final result."""
     async for event in run_pipeline_stream(message, model_id):
         if event.get("phase") == "done":
             return {"answer": event["answer"], "debug": event["debug"]}

@@ -27,10 +27,17 @@ type BackendStreamEvent =
   | BackendDoneEvent
   | BackendErrorEvent;
 
+export type HistoryMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
 export async function callBackend(
   message: string,
   model: string,
-  onProgress?: (event: BackendProgressEvent) => void
+  onProgress?: (event: BackendProgressEvent) => void,
+  history: HistoryMessage[] = [],
+  sessionId?: string,
 ): Promise<BackendChatResult> {
   const backendUrl = process.env.BACKEND_URL;
 
@@ -41,7 +48,12 @@ export async function callBackend(
   const response = await fetch(`${backendUrl}/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message, model }),
+    body: JSON.stringify({
+      message,
+      model,
+      history,
+      session_id: sessionId ?? null,
+    }),
     cache: "no-store",
   });
 

@@ -10,11 +10,11 @@ embedding:
   dimension: 1024
 
 retrieval:
-  top_k: 7
+  top_k: 12
 
 reranker:
   model: "qwen3-rerank"
-  top_n: 5
+  top_n: 7
 
 query_agent:
   model: "qwen3.7-flash"
