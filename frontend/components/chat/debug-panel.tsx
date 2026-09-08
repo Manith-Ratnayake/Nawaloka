@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 type ChunkPreview = {
   id?: string;
+  rrf_score?: number | null;
   rerank_score?: number | null;
   source?: string;
   content_preview?: string;
@@ -64,6 +65,11 @@ type DebugTrace = {
     sql_context_chars?: number;
     answer_chars?: number;
   };
+  mem0?: {
+    memory_context?: string;
+    memories?: string[];
+  };
+  history_sent?: Array<{ role: string; content: string }>;
 };
 
 function Chevron({ open }: { open: boolean }) {
@@ -137,11 +143,24 @@ function ChunkList({ chunks }: { chunks?: ChunkPreview[] }) {
             <span className="truncate text-foreground/80">
               {chunk.source || chunk.id}
             </span>
-            {typeof chunk.rerank_score === "number" && (
-              <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] text-foreground/80">
-                score {chunk.rerank_score.toFixed(3)}
-              </span>
-            )}
+            <div className="flex shrink-0 items-center gap-1">
+              {typeof chunk.rrf_score === "number" && (
+                <span
+                  className="rounded bg-blue-500/10 px-1.5 py-0.5 text-[10px] text-blue-400"
+                  title="RRF hybrid retrieval score (vector + keyword fusion)"
+                >
+                  cos {chunk.rrf_score.toFixed(4)}
+                </span>
+              )}
+              {typeof chunk.rerank_score === "number" && (
+                <span
+                  className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] text-emerald-400"
+                  title="Reranker relevance score"
+                >
+                  rerank {chunk.rerank_score.toFixed(3)}
+                </span>
+              )}
+            </div>
           </div>
           {chunk.content_preview && (
             <div className="mt-0.5 line-clamp-2 text-muted-foreground">
@@ -163,6 +182,8 @@ export function DebugPanel({ data }: { data: unknown }) {
   const vectorDebug = trace?.step3_search?.vector;
   const sqlDebug = trace?.step3_search?.sql;
   const answerStats = trace?.step4_answer;
+  const mem0 = trace?.mem0;
+  const historySent = trace?.history_sent;
 
   return (
     <div className="w-[min(100%,560px)] overflow-hidden rounded-lg border border-border/50 bg-muted/30 text-[12px]">
@@ -289,6 +310,64 @@ export function DebugPanel({ data }: { data: unknown }) {
                   )}
                 </div>
               ))}
+            </CollapsibleSection>
+          )}
+
+          {/* Memory context from mem0 */}
+          {mem0 && (
+            <CollapsibleSection
+              defaultOpen
+              meta={
+                mem0.memories && mem0.memories.length > 0
+                  ? `${mem0.memories.length} memories`
+                  : "none"
+              }
+              title="Memory (mem0)"
+            >
+              {mem0.memories && mem0.memories.length > 0 ? (
+                <div className="space-y-1">
+                  {mem0.memories.map((m, i) => (
+                    <div
+                      className="rounded border border-border/40 bg-background/60 px-2 py-1 text-foreground/80"
+                      key={i}
+                    >
+                      {m}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-muted-foreground">
+                  No memories retrieved for this query.
+                </div>
+              )}
+            </CollapsibleSection>
+          )}
+
+          {/* History slice sent to the answer LLM */}
+          {historySent && historySent.length > 0 && (
+            <CollapsibleSection
+              defaultOpen
+              meta={`${historySent.length} turns`}
+              title="History sent to LLM"
+            >
+              <div className="space-y-1">
+                {historySent.map((m, i) => (
+                  <div
+                    className={cn(
+                      "rounded border border-border/40 px-2 py-1",
+                      m.role === "user"
+                        ? "bg-blue-500/5 text-blue-300/90"
+                        : "bg-background/60 text-foreground/80"
+                    )}
+                    key={i}
+                  >
+                    <span className="mr-1.5 text-[10px] font-medium uppercase tracking-wide opacity-60">
+                      {m.role}
+                    </span>
+                    <span className="line-clamp-2">{m.content}</span>
+                  </div>
+                ))}
+              </div>
             </CollapsibleSection>
           )}
 

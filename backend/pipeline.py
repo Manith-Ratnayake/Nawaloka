@@ -104,6 +104,7 @@ def _chunk_preview(chunk: dict) -> dict:
     source = chunk.get("_source", {})
     return {
         "id": chunk.get("_id"),
+        "rrf_score": chunk.get("_score"),          # RRF hybrid retrieval score (cosine-based fusion)
         "rerank_score": chunk.get("rerank_score"),  # None if not reranked yet
         "source": source.get("url") or source.get("page") or source.get("page_name") or "",
         "content_preview": (
@@ -440,7 +441,16 @@ async def run_pipeline_stream(
 
     # Collect memory (should be done by now — it ran in parallel with steps 1–3)
     memory_context = await memory_task
-    debug_trace["mem0"] = {"memory_context": memory_context or "(none)"}
+    debug_trace["mem0"] = {
+        "memory_context": memory_context or "(none)",
+        "memories": [m.strip() for m in memory_context.split("\n") if m.strip()] if memory_context else [],
+    }
+
+    # Expose the history slice that was actually sent to the answer LLM
+    debug_trace["history_sent"] = [
+        {"role": m["role"], "content": m["content"]}
+        for m in history[-4:]
+    ] if history else []
 
     # Step 4: Generate answer
     yield {
