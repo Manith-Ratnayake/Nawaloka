@@ -20,24 +20,21 @@ export async function saveChatModelAsCookie(model: string) {
   cookieStore.set("chat-model", model);
 }
 
+
+
+
 export async function generateTitleFromUserMessage({
   message,
 }: {
   message: UIMessage;
 }) {
-  const { text } = await generateText({
-    instructions: titlePrompt,
-    model: getTitleModel(),
-    prompt: getTextFromMessage(message),
-    providerOptions: {
-      gateway: { order: titleModel.gatewayOrder },
-    },
-  });
-  return text
-    .replace(/^[#*"\s]+/, "")
-    .replace(/["]+$/, "")
-    .trim();
+  const text = getTextFromMessage(message);
+  // Just use the first ~50 chars of the user message as the title
+  return text.slice(0, 50).trim() || "New chat";
 }
+
+
+
 
 export async function deleteTrailingMessages({ id }: { id: string }) {
   const session = await auth();
