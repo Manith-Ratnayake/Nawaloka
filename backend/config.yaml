@@ -13,7 +13,7 @@ retrieval:
   top_k: 12
 
 reranker:
-  model: "qwen3-rerank"
+  model: "gte-rerank"
   top_n: 7
 
 query_agent:
