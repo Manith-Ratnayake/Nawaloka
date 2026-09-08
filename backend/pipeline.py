@@ -22,6 +22,9 @@ seed_faqs(embedder=create_embedding)
 mem0 = MemoryClient()   # reads MEM0_API_KEY from env automatically
 MEM0_USER_ID = "nawaloka_global"  # single shared user — good enough for now
 
+# ── Background task registry — prevents GC from killing fire-and-forget tasks ──
+_background_tasks: set[asyncio.Task] = set()
+
 
 # ── LLM helpers ──────────────────────────────────────────────────────
 
@@ -104,7 +107,6 @@ def _chunk_preview(chunk: dict) -> dict:
     source = chunk.get("_source", {})
     return {
         "id": chunk.get("_id"),
-        "rrf_score": chunk.get("_score"),          # RRF hybrid retrieval score (cosine-based fusion)
         "rerank_score": chunk.get("rerank_score"),  # None if not reranked yet
         "source": source.get("url") or source.get("page") or source.get("page_name") or "",
         "content_preview": (
@@ -302,26 +304,27 @@ async def generate_answer(
 def _mem0_search(query: str, user_id: str) -> str:
     """Returns a short string of relevant memories, or empty string."""
     try:
-        results = mem0.search(query=query, user_id=user_id, limit=4)
-        if not results:
-            return ""
+        raw = mem0.search(query=query, user_id=user_id, limit=4)
+        # mem0 SDK v1 returns a list; v2 returns {"results": [...]}
+        results = raw.get("results", []) if isinstance(raw, dict) else (raw or [])
         return "\n".join(r["memory"] for r in results if r.get("memory"))
     except Exception:
         return ""  # never crash the pipeline over memory
 
 
 def _mem0_add(user_message: str, assistant_message: str, user_id: str) -> None:
-    """Fire-and-forget: store the turn in mem0."""
+    """Store the turn in mem0."""
     try:
-        mem0.add(
+        result = mem0.add(
             messages=[
                 {"role": "user", "content": user_message},
                 {"role": "assistant", "content": assistant_message},
             ],
             user_id=user_id,
         )
-    except Exception:
-        pass  # never crash the pipeline over memory
+        print(f"[mem0] add OK for user_id={user_id} | result={result}")
+    except Exception as e:
+        print(f"[mem0] add FAILED for user_id={user_id} | error={e}")
 
 
 # ── Pipeline ─────────────────────────────────────────────────────────
@@ -441,16 +444,7 @@ async def run_pipeline_stream(
 
     # Collect memory (should be done by now — it ran in parallel with steps 1–3)
     memory_context = await memory_task
-    debug_trace["mem0"] = {
-        "memory_context": memory_context or "(none)",
-        "memories": [m.strip() for m in memory_context.split("\n") if m.strip()] if memory_context else [],
-    }
-
-    # Expose the history slice that was actually sent to the answer LLM
-    debug_trace["history_sent"] = [
-        {"role": m["role"], "content": m["content"]}
-        for m in history[-4:]
-    ] if history else []
+    debug_trace["mem0"] = {"memory_context": memory_context or "(none)"}
 
     # Step 4: Generate answer
     yield {
@@ -473,10 +467,8 @@ async def run_pipeline_stream(
         "answer_chars": len(answer),
     }
 
-    # Store this turn in mem0 — fire and forget, don't block the response
-    asyncio.create_task(
-        asyncio.to_thread(_mem0_add, message, answer, user_id)
-    )
+    # Await mem0 save — must complete before we're done, demo needs this working.
+    await asyncio.to_thread(_mem0_add, message, answer, user_id)
 
     yield {
         "phase": "done",
