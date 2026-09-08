@@ -228,7 +228,23 @@ export async function POST(request: Request) {
           model: chatModel,
         });
 
-        const backendResponse = await callBackend(userMessage, chatModel);
+        const backendResponse = await callBackend(
+          userMessage,
+          chatModel,
+          (event) => {
+            dataStream.write({
+              data: {
+                message: event.message,
+                modelId: event.modelId ?? "",
+                modelName: event.modelName ?? "",
+                phase: event.phase,
+              },
+              id: "pipeline-status",
+              transient: true,
+              type: "data-waiting-status",
+            });
+          }
+        );
 
         console.log("RENDER RESPONSE:", backendResponse);
 
@@ -259,6 +275,14 @@ export async function POST(request: Request) {
           type: "text-end",
           id: textId,
         });
+
+        if (backendResponse.debug) {
+          dataStream.write({
+            type: "data-debug",
+            id: `debug-${textId}`,
+            data: backendResponse.debug,
+          });
+        }
 
         if (titlePromise) {
           try {

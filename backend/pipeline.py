@@ -223,8 +223,13 @@ async def generate_answer(message: str, model_id: str, vector_context: str, sql_
 
 # ── Pipeline ─────────────────────────────────────────────────────────
 
-async def run_pipeline(message: str, model_id: str) -> dict:
-    """Returns full debug payload instead of just the answer string."""
+async def run_pipeline_stream(message: str, model_id: str):
+    """Async generator: yields a status dict before each phase runs, then a
+    final {"phase": "done", "answer": ..., "debug": ...} event.
+
+    Callers that just want the final result can consume this to completion
+    and take the last "done" event (see run_pipeline below).
+    """
     message = message.strip()
     model_id = model_id.strip()
     if not message:
@@ -235,6 +240,12 @@ async def run_pipeline(message: str, model_id: str) -> dict:
     debug_trace = {}
 
     # Step 1: Route
+    yield {
+        "phase": "router",
+        "message": "Deciding where to look...",
+        "modelId": settings.query_agent_model,
+        "modelName": "Router",
+    }
     plan, router_debug = await route_query(message)
     debug_trace["step1_router"] = {"plan": plan, "debug": router_debug}
 
@@ -242,6 +253,12 @@ async def run_pipeline(message: str, model_id: str) -> dict:
     vector_queries = []
     query_agent_debug = None
     if plan["use_vector"]:
+        yield {
+            "phase": "vector",
+            "message": "Optimizing search queries...",
+            "modelId": settings.query_agent_model,
+            "modelName": "Query agent",
+        }
         vector_queries, query_agent_debug = await prepare_vector_queries(plan["vector_question"])
         debug_trace["step2_query_agent"] = {"queries": vector_queries, "debug": query_agent_debug}
     else:
@@ -250,12 +267,30 @@ async def run_pipeline(message: str, model_id: str) -> dict:
     # Step 3: Fetch from sources in parallel
     tasks = {}
     if plan["use_vector"]:
+        yield {
+            "phase": "vector",
+            "message": "Searching the website index...",
+            "modelId": settings.embedding_model,
+            "modelName": "Vector search",
+        }
         tasks["vector"] = vector_search(vector_queries)
     if plan["use_sql"]:
+        yield {
+            "phase": "sql",
+            "message": "Querying the hospital database...",
+            "modelId": settings.sql_agent_model,
+            "modelName": "SQL agent",
+        }
         tasks["sql"] = sql_search(plan["sql_question"])
 
     # Fallback
     if not tasks:
+        yield {
+            "phase": "vector",
+            "message": "Searching the website index...",
+            "modelId": settings.embedding_model,
+            "modelName": "Vector search",
+        }
         tasks["vector"] = vector_search([message])
         debug_trace["step3_fallback"] = True
 
@@ -283,6 +318,12 @@ async def run_pipeline(message: str, model_id: str) -> dict:
     debug_trace["step3_search"] = step3_debug
 
     # Step 4: Generate answer
+    yield {
+        "phase": "answer",
+        "message": "Generating the answer...",
+        "modelId": "qwen-plus",
+        "modelName": "Answer agent",
+    }
     answer = await generate_answer(message, model_id, vector_context, sql_context)
     debug_trace["step4_answer"] = {
         "vector_context_chars": len(vector_context),
@@ -290,7 +331,17 @@ async def run_pipeline(message: str, model_id: str) -> dict:
         "answer_chars": len(answer),
     }
 
-    return {
+    yield {
+        "phase": "done",
         "answer": answer,
         "debug": debug_trace,
     }
+
+
+async def run_pipeline(message: str, model_id: str) -> dict:
+    """Backward-compatible wrapper (used by scripts/tests): consumes the
+    stream and returns just the final result."""
+    async for event in run_pipeline_stream(message, model_id):
+        if event.get("phase") == "done":
+            return {"answer": event["answer"], "debug": event["debug"]}
+    raise RuntimeError("Pipeline stream ended without a final result")

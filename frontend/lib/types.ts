@@ -28,7 +28,15 @@ export type ChatTools = {
 };
 
 export type WaitingStatusData = {
-  phase: "waiting" | "still-waiting" | "health" | "thinking";
+  phase:
+    | "waiting"
+    | "still-waiting"
+    | "health"
+    | "thinking"
+    | "router"
+    | "vector"
+    | "sql"
+    | "answer";
   message: string;
   modelId: string;
   modelName: string;
@@ -48,6 +56,7 @@ export type CustomUIDataTypes = {
   finish: null;
   "chat-title": string;
   "waiting-status": WaitingStatusData;
+  debug: unknown;
 };
 
 export type ChatMessage = UIMessage<

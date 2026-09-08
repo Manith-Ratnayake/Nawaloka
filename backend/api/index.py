@@ -1,7 +1,10 @@
-from fastapi import FastAPI, HTTPException
+import json
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from pipeline import run_pipeline
+from pipeline import run_pipeline_stream
 
 
 app = FastAPI(title="Nawaloka AI Backend")
@@ -28,13 +31,20 @@ def root():
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    try:
-        result = await run_pipeline(request.message, request.model)
-        return {
-            "message": result["answer"],
-            "debug": result["debug"],
-        }
-    except ValueError as error:
-        raise HTTPException(status_code=400, detail=str(error)) from error
-    except Exception as error:
-        raise HTTPException(status_code=500, detail=str(error)) from error
+    async def event_stream():
+        try:
+            async for event in run_pipeline_stream(request.message, request.model):
+                if event.get("phase") == "done":
+                    yield json.dumps({
+                        "phase": "done",
+                        "message": event["answer"],
+                        "debug": event["debug"],
+                    }, default=str) + "\n"
+                else:
+                    yield json.dumps(event, default=str) + "\n"
+        except ValueError as error:
+            yield json.dumps({"phase": "error", "error": str(error), "status": 400}) + "\n"
+        except Exception as error:
+            yield json.dumps({"phase": "error", "error": str(error), "status": 500}) + "\n"
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")

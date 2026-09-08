@@ -14,6 +14,7 @@ import {
   ToolOutput,
 } from "../ai-elements/tool";
 import { useDataStream } from "./data-stream-provider";
+import { DebugPanel } from "./debug-panel";
 import { DocumentToolResult } from "./document";
 import { DocumentPreview } from "./document-preview";
 import { SparklesIcon } from "./icons";
@@ -336,6 +337,10 @@ const PurePreviewMessage = ({
           </ToolContent>
         </Tool>
       );
+    }
+
+    if (type === "data-debug") {
+      return <DebugPanel data={part.data} key={key} />;
     }
 
     return null;
