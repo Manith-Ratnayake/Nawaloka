@@ -29,8 +29,11 @@ def root():
 @app.post("/chat")
 async def chat(request: ChatRequest):
     try:
-        answer = await run_pipeline(request.message, request.model)
-        return {"message": answer}
+        result = await run_pipeline(request.message, request.model)
+        return {
+            "message": result["answer"],
+            "debug": result["debug"],
+        }
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except Exception as error:

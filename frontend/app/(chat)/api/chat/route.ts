@@ -83,6 +83,14 @@ export { getStreamContext };
 export async function POST(request: Request) {
   let requestBody: PostRequestBody;
 
+  console.log("ENV CHECK:", {
+    BACKEND_URL: process.env.BACKEND_URL?.substring(0, 20),
+    POSTGRES_URL: process.env.POSTGRES_URL ? "SET" : "MISSING",
+    REDIS_URL: process.env.REDIS_URL ? "SET" : "MISSING",
+  });
+
+
+
   try {
     const json = await request.json();
     requestBody = postRequestBodySchema.parse(json);
