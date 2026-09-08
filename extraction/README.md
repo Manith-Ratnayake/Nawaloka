@@ -22,6 +22,11 @@ The extraction stage collects content from selected Nawaloka website pages and c
 
 8. Failed or incomplete pages are recorded for inspection.
 
+
+> ⚠️ **Note:** Due to problems with crawl4ai (not extracting all text on dynamically rendered pages), Firecrawl was selected as the crawling layer.
+
+
+
 ## Folder structure
 
 ```text

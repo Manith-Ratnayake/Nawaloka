@@ -14,6 +14,10 @@ The system uses **structure aware chunking** based on the HTML structure of each
 
 A new chunk starts when a new `h1` or `h2` section begins. Content under that heading remains together until the next section boundary.
 
+why is this?
+The web developer wants to show a 1 message using 1 section, this layout can be use for chunking
+otherwise require an LLM to rediscover the meaning
+
 ```text
 H2: Heart Centre
 Paragraph

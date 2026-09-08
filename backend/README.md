@@ -6,20 +6,33 @@ The backend handles the AI pipeline behind the Nawaloka chat assistant.
 
 It receives a user question, decides which information source is required, retrieves the necessary evidence, and generates the final answer.
 
-## Request flow
+## Request Flow
 
 ```text
 User Question
      ↓
+FAQ Cache Check (Redis) ──── Cache Hit ──→ Answer
+     ↓ Cache Miss
 Query Router
      ↓
-Website Search / SQL Search
-     ↓
-Retrieval and Reranking
-     ↓
-Evidence
-     ↓
-Answer Generation
+  ┌──────────────────────────────────┐
+  │                                  │
+  ↓                                  ↓
+Vector Search                    SQL Search
+  ↓                                  ↓
+Query Optimisation               Text-to-SQL Generation
+  ↓                                  ↓
+Embedding + OpenSearch KNN       Execute SQL on Neon DB
+  ↓                                  ↓
+Hybrid Retrieval (RRF)           Structured Results
+  ↓
+Cohere Reranking
+  ↓
+  └──────────── Evidence ───────────┘
+                    ↓
+           Answer Generation
+                    ↓
+              Final Answer
 ```
 
 ## Main steps
@@ -50,6 +63,7 @@ Answer Generation
 backend/
     api/         FastAPI endpoints
     core/        Configuration and service clients
+    cache/       caching
     database/    PostgreSQL connection and query execution
     prompts/     LLM prompts
     rag/         Embedding, retrieval, reranking and context building
