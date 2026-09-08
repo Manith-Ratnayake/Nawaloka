@@ -35,6 +35,13 @@ class Settings:
     query_agent_max_subqueries: int = int(os.getenv("QUERY_AGENT_MAX_SUBQUERIES", config_value("query_agent", "max_subqueries", 4)))
     sql_agent_model: str = os.getenv("SQL_AGENT_MODEL", config_value("sql_agent", "model", "qwen3.7-flash"))
     db_sql_host: str | None = os.getenv("DB_SQL_HOST")
+    upstash_redis_url: str | None = os.getenv("UPSTASH_REDIS_URL")
+    upstash_redis_token: str | None = os.getenv("UPSTASH_REDIS_TOKEN")
+    faq_similarity_threshold: float = float(os.getenv("FAQ_SIMILARITY_THRESHOLD", config_value("faq_cache", "similarity_threshold", 0.88)))
+    faq_key_prefix: str = os.getenv("FAQ_KEY_PREFIX", config_value("faq_cache", "key_prefix", "faq:"))
+    faq_index_key: str = os.getenv("FAQ_INDEX_KEY", config_value("faq_cache", "index_key", "faq:index"))
+
+
 
 
 settings = Settings()

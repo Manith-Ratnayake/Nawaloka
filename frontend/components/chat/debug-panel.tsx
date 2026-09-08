@@ -42,6 +42,7 @@ type SqlStepDebug = {
 };
 
 type DebugTrace = {
+  cache?: "hit";
   step1_router?: {
     plan?: {
       use_vector?: boolean;
@@ -176,6 +177,13 @@ export function DebugPanel({ data }: { data: unknown }) {
 
       {open && (
         <div className="space-y-2 border-border/50 border-t px-3 py-2.5">
+          {trace?.cache === "hit" && (
+            <div className="flex items-center gap-2 rounded-md border border-border/40 bg-background/60 px-2.5 py-2 text-xs text-foreground/80">
+              <span className="text-green-500">⚡</span>
+              <span>Cache hit — answered from FAQ cache, pipeline skipped</span>
+            </div>
+          )}
+
           {plan && (
             <CollapsibleSection defaultOpen title="Router">
               <div className="text-foreground/90">

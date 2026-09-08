@@ -22,3 +22,8 @@ query_agent:
 
 sql_agent:
   model: "qwen3.7-flash"
+
+faq_cache:
+  similarity_threshold: 0.88
+  key_prefix: "faq:"
+  index_key: "faq:index"

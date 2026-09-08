@@ -2,17 +2,13 @@ import json
 import math
 import logging
 from pathlib import Path
-
 from upstash_redis import Redis
+from core.settings import settings
+
 
 logger = logging.getLogger(__name__)
-
-redis = Redis(url="https://topical-gazelle-81142.upstash.io", token="********")
-
+redis = Redis(url=settings.upstash_redis_url, token=settings.upstash_redis_token)
 FAQ_FILE = Path(__file__).resolve().parents[1] / "cache" / "nawaloka_frequent_faqs.json"
-FAQ_KEY_PREFIX = "faq:"
-FAQ_INDEX_KEY = "faq:index"          # list of all FAQ keys
-SIMILARITY_THRESHOLD = 0.88
 
 
 # ── Seeding ───────────────────────────────────────────────────────────
@@ -36,7 +32,7 @@ def seed_faqs(embedder) -> None:
         faqs: list[dict] = json.load(f)
 
     # Wipe stale entries so a re-seed is idempotent
-    existing_keys = redis.get(FAQ_INDEX_KEY)
+    existing_keys = redis.get(settings.faq_index_key)
     if existing_keys:
         for key in json.loads(existing_keys):
             redis.delete(key)
@@ -49,7 +45,7 @@ def seed_faqs(embedder) -> None:
             continue
 
         embedding = embedder(question)          # list[float]
-        key = f"{FAQ_KEY_PREFIX}{i}"
+        key = f"{settings.faq_key_prefix}{i}"
         redis.set(key, json.dumps({
             "question":  question,
             "answer":    answer,
@@ -57,7 +53,7 @@ def seed_faqs(embedder) -> None:
         }))
         index.append(key)
 
-    redis.set(FAQ_INDEX_KEY, json.dumps(index))
+    redis.set(settings.faq_index_key, json.dumps(index))
     logger.info("[Cache] Seeded %d FAQs into Redis", len(index))
 
 
@@ -77,7 +73,7 @@ def check_faq_cache(query_embedding: list[float]) -> str | None:
     Returns the cached answer string if any FAQ question is similar
     enough to the user query, otherwise None.
     """
-    index_raw = redis.get(FAQ_INDEX_KEY)
+    index_raw = redis.get(settings.faq_index_key)
     if not index_raw:
         return None
 
@@ -95,7 +91,7 @@ def check_faq_cache(query_embedding: list[float]) -> str | None:
             best_score  = score
             best_answer = entry["answer"]
 
-    if best_score >= SIMILARITY_THRESHOLD:
+    if best_score >= settings.faq_similarity_threshold:
         logger.info("[Cache] Hit — similarity=%.4f", best_score)
         return best_answer
 
