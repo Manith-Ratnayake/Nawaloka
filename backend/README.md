@@ -1,41 +1,98 @@
-# Nawaloka AI backend
+# Backend
+
+## Purpose
+
+The backend handles the AI pipeline behind the Nawaloka chat assistant.
+
+It receives a user question, decides which information source is required, retrieves the necessary evidence, and generates the final answer.
 
 ## Request flow
 
-UI -> FastAPI `/chat` -> query preparation agent -> main agent -> website/database tools -> final answer.
+```text
+User Question
+     ↓
+Query Router
+     ↓
+Website Search / SQL Search
+     ↓
+Retrieval and Reranking
+     ↓
+Evidence
+     ↓
+Answer Generation
+```
 
-The UI-selected model is used by the main answering agent through Vercel AI Gateway. Query preparation and SQL generation use the fixed DashScope models configured in `config.yaml`.
+## Main steps
 
-## Required deployment environment variables
+1. The FastAPI endpoint receives the user question.
 
-`AI_GATEWAY_API_KEY`
+2. The router decides whether to use website retrieval, PostgreSQL, or both.
 
-`DASHSCOPE_API_KEY`
+3. Website questions are rewritten into retrieval friendly subqueries when needed.
 
-`OPENSEARCH_HOST`
+4. Each retrieval query is embedded using `text-embedding-v4`.
 
-`DATABASE_URL`
+5. OpenSearch performs vector search and keyword search.
 
-`DATABASE_URL` should be the Neon PostgreSQL connection string. The application converts a normal `postgresql://` URL to SQLAlchemy's psycopg driver internally.
+6. Results are combined using Reciprocal Rank Fusion.
 
-## Run on Render
+7. Retrieved chunks are reranked using `qwen3-rerank`.
 
-Use this start command from the backend directory:
+8. Database questions are converted into safe read only PostgreSQL queries.
+
+9. Website and database evidence is combined.
+
+10. The answer model generates the final response.
+
+## Folder structure
 
 ```text
+backend/
+    api/         FastAPI endpoints
+    core/        Configuration and service clients
+    database/    PostgreSQL connection and query execution
+    prompts/     LLM prompts
+    rag/         Embedding, retrieval, reranking and context building
+    scripts/     Utility scripts
+    pipeline.py  Main AI pipeline
+```
+
+## Setup
+
+### 1. Install dependencies
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+### 2. Environment variables
+
+Copy the values required by `backend/.env.example`.
+
+```env
+AI_GATEWAY_API_KEY=
+DASHSCOPE_API_KEY=
+DASHSCOPE_BASE_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+DASHSCOPE_RERANK_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1/reranks
+OPENSEARCH_HOST=
+DATABASE_URL=
+```
+
+`DATABASE_URL` is the PostgreSQL connection string used for structured hospital data.
+
+### 3. Run the API
+
+```bash
+uvicorn api.index:app --host 0.0.0.0 --port 8000
+```
+
+For Render deployment, use the platform provided `$PORT`.
+
+```bash
 uvicorn api.index:app --host 0.0.0.0 --port $PORT
 ```
 
-## Chat request
+## Configuration
 
-POST `/chat` with JSON containing `message`, `model`, and optionally `session_id`.
-
-```json
-{
-  "message": "How much is the dengue test?",
-  "model": "your-selected-vercel-ai-gateway-model-id",
-  "session_id": "optional-session-id"
-}
-```
-
-There is no CLI test runner in this project. `scripts/seed_database.py` exists only for intentionally seeding a database and is never imported by the application runtime.
+Model names, embedding dimensions, retrieval limits, reranker settings, and OpenSearch index settings are stored in `config.yaml`.
