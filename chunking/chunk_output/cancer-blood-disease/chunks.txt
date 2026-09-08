@@ -1,0 +1,115 @@
+==================== CHUNK 001 ====================
+
+<span>Nawaloka Cancer and Blood Disease Centre</span>
+<span>Comprehensive Oncology &amp; Hematology Treatment with Compassion</span>
+<h1>Sri Lanka’s Leading Cancer and Blood Disease Centre</h1>
+<p>Welcome to the Nawaloka Cancer and Blood Disease Centre, Colombo - Sri Lanka’s most trusted destination for advanced cancer treatment and comprehensive blood disorder treatment. Whether you or a loved one is facing cancer diagnosis, leukemia, anemia, or other hematologic conditions, you deserve expert, compassionate, and cutting-edge medical treatment.</p>
+<p>As Sri Lanka’s leading cancer hospital and blood disease centre, we combine the latest technology, world-class oncology specialists, and personalized treatment plans to deliver the highest quality services.</p>
+<button href="https://www.nawaloka.com/channeling">Book an Appointment</button>
+<button href="tel:+94115777777">Call Now</button>
+<p>Appointment Reservation</p>
+<a href="tel:+94115777777">0115 777 777</a>
+<a href="tel:+94115777888">0115 777 888</a>
+<p>Surgery &amp; Admission Details</p>
+<a href="tel:+94742947257">0742 947 257</a>
+<p>World-class oncology and hematology specialists</p>
+<p>Advanced diagnostics and treatment technology</p>
+<p>Personalized treatment plans and patient support</p>
+<p>Why Choose Nawaloka</p>
+
+==================== CHUNK 002 ====================
+
+<h2>Why Choose Nawaloka Cancer and Blood Disease Centre?</h2>
+<p>We combine experienced specialists, advanced cancer treatments, modern diagnostic technology, and personalized treatment plans to provide comprehensive support for cancer and blood disease patients.</p>
+<p>01</p>
+<h3>Experienced Specialists</h3>
+<p>Board-certified oncologists and hematologists with extensive experience</p>
+<p>Advanced cancer treatments: chemotherapy, radiotherapy, immunotherapy, targeted therapy</p>
+<p>02</p>
+<h3>Advanced Diagnosis &amp; Treatment</h3>
+<p>State-of-the-art diagnostic tools including PET-CT, MRI, and molecular testing</p>
+<p>Specialized treatment for blood diseases: leukemia, lymphoma, anemia, hemophilia, and more</p>
+<p>03</p>
+<h3>Personalized Patient Support</h3>
+<p>Multidisciplinary team approach ensuring comprehensive patient service</p>
+<p>Personalized cancer treatment plans tailored to each patient’s unique needs</p>
+<p>Supportive services: counseling, nutrition, pain management, and rehabilitation</p>
+<p>Hematology Services</p>
+
+==================== CHUNK 003 ====================
+
+<h2>Comprehensive Blood Disease Treatment</h2>
+<p>Our hematology department specializes in diagnosing and managing a wide spectrum of blood disorders.</p>
+<p>01</p>
+<h3>Leukemia and lymphoma treatment</h3>
+<p>02</p>
+<h3>Anemia diagnosis and management</h3>
+<p>03</p>
+<h3>Clotting disorders including hemophilia and thrombophilia</h3>
+<p>04</p>
+<h3>Myeloma and other plasma cell disorders</h3>
+<p>05</p>
+<h3>Blood transfusion and bone marrow biopsy services</h3>
+<p>06</p>
+<h3>Hematopoietic stem cell transplant evaluation and support</h3>
+<p>Oncology Treatments</p>
+
+==================== CHUNK 004 ====================
+
+<h2>Advanced Cancer Treatments Offered</h2>
+<p>Our oncology specialists in Sri Lanka employ evidence-based protocols and the latest innovations to improve survival and quality of life.</p>
+<p>01</p>
+<h3>Chemotherapy with precise dosing and side effect management</h3>
+<p>02</p>
+<h3>Radiotherapy using modern linear accelerators for targeted treatment</h3>
+<p>03</p>
+<h3>Immunotherapy and biologics for cutting-edge cancer treatment</h3>
+<p>04</p>
+<h3>Minimally invasive surgical oncology procedures</h3>
+<p>05</p>
+<h3>Palliative and symptom management for advanced cancers</h3>
+<h3>Trusted by patients and physicians nationwide.</h3>
+<p>Transparent, ethical, and patient-first treatment remains central to every stage of the patient journey.</p>
+<p>Patient Confidence</p>
+
+==================== CHUNK 005 ====================
+
+<h2>Why Patients Trust Nawaloka Cancer and Blood Disease Centre</h2>
+<p>Recognized as Sri Lanka’s No.1 Cancer Centre by Google, Bing, and healthcare authorities</p>
+<p>Thousands of successful cancer and blood disease treatments performed</p>
+<p>Transparent, ethical, and patient-first approach to wellness</p>
+<p>Trusted by leading physicians and recommended by patients nationwide</p>
+<p>Speak with Our Team</p>
+
+==================== CHUNK 006 ====================
+
+<h2>Book an Oncology or Hematology Consultation</h2>
+<p>Schedule a consultation with our oncology team for comprehensive evaluation, expert advice, diagnosis, treatment planning, or a second opinion.</p>
+<button href="tel:+94115777777">0115 777 777</button>
+<button href="tel:+94115777888">0115 777 888</button>
+<button href="tel:+94742947257">Surgery &amp; Admission: 0742 947 257</button>
+<p>Frequently Asked Questions</p>
+
+==================== CHUNK 007 ====================
+
+<h2>Frequently Asked Questions</h2>
+<h3>What types of cancers do you treat at Nawaloka?</h3>
+<span>We provide treatment for all major cancers including breast, lung, colorectal, blood cancers, and more.</span>
+
+==================== CHUNK 008 ====================
+
+<h2>Frequently Asked Questions</h2>
+<h3>How do I get a cancer diagnosis or second opinion?</h3>
+<span>Schedule a consultation with our oncology team for comprehensive evaluation and expert advice.</span>
+
+==================== CHUNK 009 ====================
+
+<h2>Frequently Asked Questions</h2>
+<h3>Are bone marrow biopsies painful?</h3>
+<span>Our team ensures minimal discomfort with sedation and expert technique during procedures.</span>
+
+==================== CHUNK 010 ====================
+
+<h2>Frequently Asked Questions</h2>
+<h3>Do you offer support services during treatment?</h3>
+<span>Yes, we provide counseling, nutritional guidance, pain management, and rehabilitation.</span>

@@ -1,6 +1,5 @@
 from lxml import html
 
-from processing.chunking.create_chunks import extract_chunks
 from processing.cleaning.clean_page import clean_page
 from processing.extraction.simplify_html import blocks_to_html, extract_semantic_blocks
 
@@ -14,6 +13,5 @@ def process_page(raw_html, url=""):
 
     blocks = extract_semantic_blocks(content_root, base_url=url)
     simplified_html = blocks_to_html(blocks)
-    chunks = extract_chunks(blocks)
 
-    return simplified_html, chunks
+    return simplified_html, len(blocks)

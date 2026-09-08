@@ -1,0 +1,106 @@
+==================== CHUNK 001 ====================
+
+<span>International Patient Service</span>
+<h1>World-class service in Sri Lanka, thoughtfully coordinated for you.</h1>
+<p>From pre-arrival medical opinions to airport pickup, dedicated coordinators, comfortable accommodation support, and multilingual assistance, Nawaloka Hospitals makes your healthcare journey seamless from start to finish.</p>
+<button href="https://www.nawaloka.com/international#international-enquiry">Send an Enquiry</button>
+<button href="tel:+94743487689">Call +94 74 348 7689</button>
+
+==================== CHUNK 002 ====================
+
+<h2>Your home away from home</h2>
+<p>Personalized assistance before, during, and after admission.</p>
+<p>24/7</p>
+<p>Hospital support</p>
+<p>End-to-end</p>
+<p>Coordination</p>
+<dd>1500+</dd>
+<dt>Specialists</dt>
+<dd>400+</dd>
+<dt>Bed Capacity</dt>
+<dd>3000+</dd>
+<dt>Laboratory Diagnostics</dt>
+<dd>500+</dd>
+<dt>Vehicle Parking</dt>
+<dd>7+</dd>
+<dt>Ambulances</dt>
+<dd>12</dd>
+<dt>Theatres</dt>
+
+==================== CHUNK 003 ====================
+
+<span>Premium International Support</span>
+<h2>Discover exceptional service at Nawaloka Hospitals.</h2>
+<p>In the midst of paradise, where medical emergencies can disrupt your peace of mind, Nawaloka Hospital stands as your beacon of hope. With our unwavering commitment to providing exceptional healthcare, we extend our warm embrace to patients from across the globe.</p>
+<p>Experience our dedicated International Support Service meticulously tailored to cater to your every need, ensuring a seamless and compassionate medical journey. From the moment you step through our doors, we prioritize your comfort, safety, and well-being, offering personalized treatment that exceeds expectations.</p>
+<p>At Nawaloka, distance is no barrier to receiving world-class medical attention. Trust in our expertise and let us become your home away from home, delivering the service you deserve.</p>
+
+==================== CHUNK 004 ====================
+
+<h2>Why patients choose us</h2>
+<ul>
+<li>A dedicated team of professionals with multilingual support.</li>
+<li>Experienced coordinators as advocates to guide you through the process end-to-end.</li>
+<li>Expert Medical Specialists across various disciplines updated with the latest advancements in medical technology and treatment protocols.</li>
+<li>State-of-the-Art Facilities to ensure infrastructure supports the delivery of exceptional service.</li>
+<li>Comfortable accommodations including private rooms and suites, designed to make your stay as pleasant as possible while receiving personalized service throughout recovery.</li>
+</ul>
+
+==================== CHUNK 005 ====================
+
+<span>Services for International Patients</span>
+<h2>Every detail handled with precision.</h2>
+<p>Our International Patients Team is dedicated to delivering world-class service, ensuring a hassle-free medical journey for both you and your family.</p>
+
+==================== CHUNK 006 ====================
+
+<h2>Pre-Arrival Medical Opinion</h2>
+<p>Our team of doctors will provide you with a detailed medical opinion before your arrival. Please send us your medical details and history, and we will arrange an appointment with the appropriate specialist. Note that for accuracy, we may seek additional information based on the nature of your inquiry.</p>
+
+==================== CHUNK 007 ====================
+
+<h2>Visa Services</h2>
+<p>We offer assistance with visa services to streamline your travel preparations.</p>
+
+==================== CHUNK 008 ====================
+
+<h2>Airport Pickup</h2>
+<p>We provide airport pickup services for your convenience, ensuring a smooth admission process.</p>
+
+==================== CHUNK 009 ====================
+
+<h2>Foreign Currency Exchange</h2>
+<p>We offer foreign currency exchange facilities to assist you during your stay.</p>
+
+==================== CHUNK 010 ====================
+
+<h2>Dedicated Coordinators</h2>
+<p>Each patient is assigned a dedicated coordinator who will take care of your needs within the hospital and assist you with administrative processes.</p>
+
+==================== CHUNK 011 ====================
+
+<h2>Payment Options</h2>
+<p>Payments can be made using cash or credit cards, providing flexibility for your financial preferences.</p>
+
+==================== CHUNK 012 ====================
+
+<h2>Accommodation Assistance</h2>
+<p>If you prefer to stay at a nearby hotel during your treatment, our International Marketing Team can help you find accommodation that aligns with your budget. Please contact our International Representative before your travel period for more details.</p>
+
+==================== CHUNK 013 ====================
+
+<h2>Interpreters</h2>
+<p>We have interpreters available at the hospital to ensure effective communication during your stay.</p>
+
+==================== CHUNK 014 ====================
+
+<span>Contact International Support</span>
+<h2>Begin your medical journey with confidence.</h2>
+<p>Contact our International Support Service team today, and let us help you on your path to wellness.</p>
+<a href="tel:+94743487689">Dedicated Contact Number +94 74 348 7689 Available for international patient enquiries and coordination support.</a>
+
+==================== CHUNK 015 ====================
+
+<span>Fast Response</span>
+<h2>Send an Enquiry</h2>
+<p>Share your details and our team will assist you with the next steps.</p>

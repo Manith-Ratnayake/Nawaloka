@@ -1,8 +1,9 @@
 fastapi
 uvicorn[standard]
 openai
-openai-agents
 opensearch-py
-boto3
 python-dotenv
+PyYAML
 requests
+SQLAlchemy
+psycopg[binary]

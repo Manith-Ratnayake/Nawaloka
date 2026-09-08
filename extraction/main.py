@@ -25,33 +25,33 @@ async def crawl_webpage(client, url, semaphore):
             if not rendered_html:
                 raise RuntimeError("Firecrawl returned no HTML.")
 
-            simplified_html, chunks = process_page(rendered_html, url=url)
+            simplified_html, block_count = process_page(rendered_html, url=url)
             raw_len = len(visible_text(rendered_html))
 
-            if not chunks and raw_len < CAPTURE_MIN_TEXT:
-                print(f"  ! low text ({raw_len} chars) and 0 chunks - retrying with a longer wait")
+            if block_count == 0 and raw_len < CAPTURE_MIN_TEXT:
+                print(f"  ! low text ({raw_len} chars) and 0 extracted blocks - retrying with a longer wait")
                 retry_document = await scrape_page(client, url, wait_for=CAPTURE_RETRY_WAIT_MS)
                 retry_html = _html_of(retry_document)
                 retry_len = len(visible_text(retry_html))
                 if retry_len > raw_len:
                     rendered_html, raw_len = retry_html, retry_len
-                    simplified_html, chunks = process_page(rendered_html, url=url)
+                    simplified_html, block_count = process_page(rendered_html, url=url)
 
-            folder, saved = save_success(url, simplified_html, chunks)
+            folder = save_success(url, simplified_html)
 
             status = "ok"
-            if saved == 0:
+            if block_count == 0:
                 save_raw_html(url, rendered_html)
                 if raw_len < CAPTURE_MIN_TEXT:
                     status = "capture-gap"
                     print(f"  !! CAPTURE GAP: page had ~{raw_len} chars of text; content likely never rendered.")
                 else:
                     status = "dropped"
-                    print(f"  !! DROPPED: page had ~{raw_len} chars of text but produced 0 chunks - cleaning/chunking bug.")
+                    print(f"  !! DROPPED: page had ~{raw_len} chars of text but produced 0 extracted blocks - cleaning/extraction bug.")
                 print(f"     raw HTML saved for inspection -> {folder / 'raw.html'}")
 
-            print(f"Saved {saved} chunks -> {folder}")
-            return url, saved, status
+            print(f"Saved {block_count} extracted blocks -> {folder}")
+            return url, block_count, status
         except Exception as exc:
             save_failure(url, exc)
             print(f"  !! ERROR: {exc}")
@@ -62,13 +62,13 @@ def print_summary(results):
     print("\n==================== SUMMARY ====================")
     for url, saved, status in results:
         flag = "" if status == "ok" else f"   <-- {status.upper()}"
-        print(f"{saved:>4} chunks  {url}{flag}")
+        print(f"{saved:>4} blocks  {url}{flag}")
 
     problems = [result for result in results if result[2] != "ok"]
     if problems:
         print(f"\n{len(problems)} page(s) need attention: " + ", ".join(f"{url} ({status})" for url, _, status in problems))
     else:
-        print("\nAll pages produced chunks.")
+        print("\nAll pages produced extracted content.")
 
 
 async def async_main():

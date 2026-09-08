@@ -1,0 +1,151 @@
+==================== CHUNK 001 ====================
+
+<h1>One of the Best Private Hospitals in Colombo Offering World-Class Care</h1>
+<img src="https://www.nawaloka.com/static/media/about-us.89da0c5adcb74ffe69d9.webp" alt="Nawaloka Hospital - About Us">
+
+==================== CHUNK 002 ====================
+
+<span>ABOUT NAWALOKA HOSPITAL</span>
+<h2>Our Story</h2>
+<p>Sri Lanka’s pioneer in premium private healthcare - built on four decades of trust, innovation, and compassion.</p>
+<button href="https://www.nawaloka.com/contactus">Enquire Now</button>
+<button href="https://www.nawaloka.com/channeling">Book an Appointment</button>
+
+==================== CHUNK 003 ====================
+
+<span>Who We Are</span>
+<h2>One of the Best Private Hospitals in Colombo Offering World-Class Service</h2>
+<p>When it comes to colombo private hospitals, Nawaloka Hospital sets the benchmark for premium healthcare in Sri Lanka. As a pioneer in introducing advanced medical technology and multi-specialist consultation services, Nawaloka Hospital is renowned for providing exceptional service with safety, efficiency, and compassion.</p>
+<p>Enquire Now to experience world-class healthcare at the best private hospitals in Colombo.</p>
+
+==================== CHUNK 004 ====================
+
+<span>Why Nawaloka</span>
+<h2>Why Choose Nawaloka Hospital?</h2>
+<p>Trusted care, advanced facilities, and specialist-led services - designed around the patient.</p>
+<h3>Trusted Expertise</h3>
+<p>Over 40 years of experience in delivering primary, secondary, and tertiary healthcare services.</p>
+<h3>Central Colombo Location</h3>
+<p>Easily accessible in Colombo city, close to key landmarks and transport hubs.</p>
+<h3>Accredited &amp; Certified</h3>
+<p>Commitment to ISO 9001 quality management standards.</p>
+<h3>Advanced Technology</h3>
+<p>Cutting-edge medical equipment and modern healthcare facilities.</p>
+<h3>Comprehensive Service</h3>
+<p>Wide range of specialties under one roof, including multi-specialist consultations and premium medical services.</p>
+<h3>Patient-Centric Approach</h3>
+<p>Focus on comfort, safety, and a personalized treatment experience.</p>
+<p>Enquire Now to experience world-class healthcare at the best private hospitals in Colombo.</p>
+
+==================== CHUNK 005 ====================
+
+<span>Purpose</span>
+<h2>Our Vision &amp; Mission</h2>
+<span>Vision</span>
+<h3>“To Be the Hospital of Tomorrow”</h3>
+<p>To provide quality and safe healthcare to the people while maintaining leadership and excellence in the healthcare sector.</p>
+<span>Mission</span>
+<h3>“Healing with Feeling”</h3>
+<p>To provide the best healthcare in accordance with international standards, in a cost-effective, timely, and professional manner.</p>
+
+==================== CHUNK 006 ====================
+
+<span>Principles</span>
+<h2>Core Values</h2>
+<p>Nawaloka Hospital prioritizes proactive healthcare through strategic focus areas:</p>
+<span>01</span>
+<p>Strengthen Safety and Quality</p>
+<span>02</span>
+<p>Drive Innovation, Technology, and Research</p>
+<span>03</span>
+<p>Empower Our People</p>
+<span>04</span>
+<p>Plan for a Sustainable Future</p>
+<span>05</span>
+<p>Achieve Financial Health</p>
+
+==================== CHUNK 007 ====================
+
+<span>Standards</span>
+<h2>Quality Policy</h2>
+<p>Our commitment includes:</p>
+<ul>
+<li>Affordable services with the highest standards of professionalism</li>
+<li>Quality, speed, accuracy, safety, integrity, and courtesy</li>
+<li>Continuous improvement through feedback</li>
+<li>Team dedication to ensure patient satisfaction</li>
+</ul>
+<p>We achieve these through:</p>
+<ul>
+<li>Better Management Practices</li>
+<li>Modern &amp; Latest Healthcare Technologies</li>
+<li>Strengths and Affiliations of Nawaloka Hospital</li>
+<li>ISO 9001 Quality Management System</li>
+</ul>
+
+==================== CHUNK 008 ====================
+
+<span>What We Offer</span>
+<h2>Comprehensive Services at Nawaloka Hospital</h2>
+<p>A full spectrum of services under one roof - making us one of the best private hospitals in Colombo.</p>
+<span>General Medicine &amp; Surgery</span>
+<span>Cardiology &amp; Cardiac Surgery</span>
+<span>Oncology &amp; Hematology</span>
+<span>Orthopedics &amp; Trauma Care</span>
+<span>Pediatrics &amp; Neonatal Care</span>
+<span>Advanced Diagnostics &amp; Imaging</span>
+<span>Preventive Health Programs</span>
+
+==================== CHUNK 009 ====================
+
+<span>FAQ</span>
+<h2>Frequently Asked Questions</h2>
+<h3>What makes Nawaloka Hospital one of the best private hospitals in Colombo?</h3>
+<span>Nawaloka Hospital combines advanced technology, multi-specialist service, and over 35 years of experience to deliver world-class healthcare in Colombo.</span>
+
+==================== CHUNK 010 ====================
+
+<span>FAQ</span>
+<h2>Frequently Asked Questions</h2>
+<h3>Where is Nawaloka Hospital located in Colombo?</h3>
+<span>Nawaloka Hospital is centrally located in Colombo, providing convenient access for patients across the city and beyond.</span>
+
+==================== CHUNK 011 ====================
+
+<span>FAQ</span>
+<h2>Frequently Asked Questions</h2>
+<h3>Does Nawaloka Hospital offer multi-specialist consultations?</h3>
+<span>Yes. Nawaloka Hospital provides comprehensive consultations across multiple specialties, making it a one-stop healthcare destination.</span>
+
+==================== CHUNK 012 ====================
+
+<span>FAQ</span>
+<h2>Frequently Asked Questions</h2>
+<h3>How can I book an appointment at Nawaloka Hospital?</h3>
+<span>You can book online via the Nawaloka Hospital website or call the contact center for immediate assistance.</span>
+
+==================== CHUNK 013 ====================
+
+<span>FAQ</span>
+<h2>Frequently Asked Questions</h2>
+<h3>Is Nawaloka Hospital ISO certified?</h3>
+<span>Nawaloka Hospital follows ISO 9001 quality management standards, ensuring consistent service quality and patient safety.</span>
+
+==================== CHUNK 014 ====================
+
+<h2>Watch Our Journey</h2>
+<p>Sri Lanka’s first premium private hospital</p>
+<p>Discover our journey as Sri Lanka’s first private premium healthcare services provider - built on trust, innovation, and patient-first service.</p>
+
+==================== CHUNK 015 ====================
+
+<h2>Need Help Fast?</h2>
+<p>Enquire now or book your consultation with top specialists in Colombo.</p>
+<button href="https://www.nawaloka.com/contactus">Enquire Now</button>
+<button href="https://www.nawaloka.com/channeling">Book Appointment</button>
+
+==================== CHUNK 016 ====================
+
+<span>Quality</span>
+<h2>ISO 9001 Quality Management</h2>
+<p>We continuously improve patient experience and service quality through structured feedback and best-practice processes.</p>

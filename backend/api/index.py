@@ -1,11 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from pipeline import run_pipeline
 
-from rag.pipeline import run_rag
 
-
-app = FastAPI()
+app = FastAPI(title="Nawaloka AI Backend")
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,6 +17,7 @@ app.add_middleware(
 
 class ChatRequest(BaseModel):
     message: str
+    model: str
     session_id: str | None = None
 
 
@@ -27,6 +27,11 @@ def root():
 
 
 @app.post("/chat")
-def chat(request: ChatRequest):
-    # answer = run_rag(request.message)
-    return {"message": request}
+async def chat(request: ChatRequest):
+    try:
+        answer = await run_pipeline(request.message, request.model)
+        return {"message": answer}
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=str(error)) from error

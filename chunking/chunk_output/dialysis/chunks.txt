@@ -1,0 +1,26 @@
+==================== CHUNK 001 ====================
+
+<p>Dialysis Unit</p>
+<h2>Book Your Session or Consultation</h2>
+<p>0115 777 777</p>
+<p>At Nawaloka Hospitals, we understand that Dialysis Treatment is not just a treatment - it’s about giving patients a better quality of life and peace of mind. We bring the same dedication, compassion, and world-class standards to our Dialysis Unit at Nawaloka Hospitals Colombo 02.</p>
+<p>Why Choose Us?</p>
+<p>Our Dialysis Unit is equipped with the latest B. Braun dialysis machines and a high-efficiency Reverse Osmosis (RO) water purification system, ensuring every treatment meets global safety and performance standards. We offer both inpatient and outpatient dialysis, with flexible scheduling, real-time monitoring, and full consultant supervision.</p>
+<p>Comfort. Safety. Precision.</p>
+<ul>
+<li>Dedicated Dialysis Bays with privacy-enhancing design.</li>
+<li>Continuous Monitoring of vitals: BP, oxygen levels, heart rate.</li>
+<li>Emergency-Ready Setup with ICU-trained staff and on-site crash carts.</li>
+<li>Strict Infection Control Protocols including isolation zones for high-risk patients.</li>
+</ul>
+<p>Now Available: Private VIP Dialysis Room</p>
+<p>For those who prefer added comfort and discretion, our VIP Dialysis Room offers:</p>
+<ul>
+<li>A private, fully equipped treatment space</li>
+<li>Personalized nursing support</li>
+<li>Optional guest seating and entertainment</li>
+<li>Priority scheduling and enhanced amenities</li>
+</ul>
+<p>Ideal for executive clients, international patients, or those seeking a more personalized dialysis experience.</p>
+<p>Holistic Kidney Treatment</p>
+<p>Your dialysis journey is managed by a multidisciplinary team of consultant nephrologists, specialist nurses, dietitians, and coordinators - ensuring every session is aligned with your health goals. We’re also proud to support over 500 successful kidney transplants to date through our integrated Renal Transplant Program.</p>

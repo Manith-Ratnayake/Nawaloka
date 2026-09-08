@@ -2,23 +2,22 @@ import html
 import os
 import re
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
-import boto3
 from bs4 import BeautifulSoup
-from openai import OpenAI
-from opensearchpy import AWSV4SignerAuth, OpenSearch, RequestsHttpConnection
 from dotenv import load_dotenv
-from pathlib import Path
+from openai import OpenAI
+from opensearchpy import OpenSearch, RequestsHttpConnection
+
 
 load_dotenv()
 
-ROOT_FOLDER = "chunk_output"
+ROOT_FOLDER = Path(__file__).resolve().parent.parent / "extraction_and_chunking" / "chunk_output"
 INDEX_NAME = "nawaloka"
 
 EMBEDDING_MODEL = "text-embedding-v4"
 EMBEDDING_DIMENSION = 1024
 
-AWS_REGION = "ap-south-1"
 OPENSEARCH_HOST = os.getenv("OPENSEARCH_HOST")
 DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY")
 DASHSCOPE_BASE_URL = os.getenv("DASHSCOPE_BASE_URL")
@@ -50,9 +49,9 @@ def clean_html(raw_content):
 
 def embed_text(text):
     response = client.embeddings.create(
-        model="text-embedding-v4",
+        model=EMBEDDING_MODEL,
         input=text,
-        dimensions=1024,
+        dimensions=EMBEDDING_DIMENSION,
         encoding_format="float",
     )
 
@@ -63,26 +62,28 @@ def create_opensearch_client():
     if not OPENSEARCH_HOST:
         raise ValueError("OPENSEARCH_HOST environment variable is not set.")
 
-    credentials = boto3.Session().get_credentials()
+    parsed = urlparse(OPENSEARCH_HOST)
 
-    if credentials is None:
-        raise ValueError("AWS credentials were not found.")
+    if not parsed.hostname:
+        raise ValueError("Invalid OPENSEARCH_HOST.")
 
-    auth = AWSV4SignerAuth(credentials, AWS_REGION, "aoss")
+    if not parsed.username or not parsed.password:
+        raise ValueError("Bonsai OPENSEARCH_HOST must contain username and password.")
 
     return OpenSearch(
-        hosts=[{"host": OPENSEARCH_HOST, "port": 443}],
-        http_auth=auth,
-        use_ssl=True,
+        hosts=[{"host": parsed.hostname, "port": parsed.port or 443}],
+        http_auth=(unquote(parsed.username), unquote(parsed.password)),
+        use_ssl=parsed.scheme == "https",
         verify_certs=True,
         connection_class=RequestsHttpConnection,
+        timeout=30,
         pool_maxsize=20,
     )
 
 
-
 def create_index(client):
     if client.indices.exists(index=INDEX_NAME):
+        print(f"Index already exists: {INDEX_NAME}")
         return
 
     body = {
@@ -118,10 +119,6 @@ def create_index(client):
 
     client.indices.create(index=INDEX_NAME, body=body)
     print(f"Created index: {INDEX_NAME}")
-
-
-
-
 
 
 def index_chunk(client, page_name, chunk_id, raw_content):
@@ -174,12 +171,14 @@ def ingest_folder(root_folder):
         raise FileNotFoundError(f"No chunks.txt files found inside: {root_folder}")
 
     client = create_opensearch_client()
+
+    print("Connected to Bonsai OpenSearch.")
     create_index(client)
 
     for chunks_file in chunk_files:
         ingest_page(client, chunks_file)
 
-
+   
     print(f"\nFinished indexing {len(chunk_files)} pages.")
 
 

@@ -1,0 +1,87 @@
+==================== CHUNK 001 ====================
+
+<h1>Emergency Services</h1>
+<p>Every second counts. Our 24-hour emergency team is ready to deliver expert, compassionate treatment when it matters most.</p>
+
+==================== CHUNK 002 ====================
+
+<h2>Round-the-Clock Emergency Treatment</h2>
+<p>When every second counts, Nawaloka Hospitals PLC is ready. Our Emergency Department operates 24/7, staffed with a highly skilled team of emergency doctors, nurses, and paramedics trained to respond to any medical crisis promptly and professionally. Whether it’s a sudden illness, accident, or critical condition, we deliver immediate, life-saving treatment with compassion and precision.</p>
+<p>24-Hour Emergency Medical Services</p>
+<p>Always on call - our emergency medical team provides immediate treatment, every hour of every day.</p>
+<p>Fully Equipped Ambulances</p>
+<p>Advanced life support systems and trained paramedics ensure safe and efficient patient transport.</p>
+<p>Inter-Hospital &amp; Air Transfers</p>
+<p>Seamless coordination for inter-facility and air ambulance transfers in critical situations.</p>
+<img src="https://www.nawaloka.com/static/media/heli-ambulance.01641219bc5873e17d3b.png" alt="Nawaloka Emergency Ambulance and Helicopter">
+<h3>What Sets Our Emergency Treatment Apart</h3>
+<p>Nawaloka Hospitals’ Emergency Treatment Unit is designed for rapid response and advanced medical intervention.</p>
+<p>We are equipped with:</p>
+<ul>
+<li>Dedicated trauma bays and emergency theatres</li>
+<li>Advanced cardiac and patient monitoring systems</li>
+<li>Real-time diagnostic support from our Radiology and Laboratory Units</li>
+<li>Direct access to ICU and cardiac teams</li>
+</ul>
+<p>This integrated approach ensures faster diagnosis, better coordination, and superior outcomes - from minor injuries to critical trauma cases.</p>
+<h3>Why Choose Nawaloka Emergency Services</h3>
+<ul>
+<li>24/7 emergency medical and ambulance response</li>
+<li>Trained and certified emergency treatment specialists</li>
+<li>Advanced life-support ambulance fleet</li>
+<li>Nationwide coverage and air transfer capability</li>
+<li>Trusted by thousands of Sri Lankans for over 40 years</li>
+</ul>
+<h3>Emergency Preparation Guide</h3>
+<p>Before arriving or while waiting for emergency assistance, follow these basic steps to help our medical team provide faster and safer treatment.</p>
+<h4>1. Stay Calm and Call for Help</h4>
+<p>In a life-threatening emergency, call our Emergency Hotline - 0779 511 929 . Stay calm and clearly describe the situation, patient’s condition, and your location. Follow the guidance provided by our emergency response team until help arrives.</p>
+<h4>2. Before You Arrive</h4>
+<ul>
+<li>Bring a valid ID (NIC or passport) if possible.</li>
+<li>Carry any available medical reports, test results, or prescriptions.</li>
+<li>Inform our team about known allergies, chronic illnesses, or ongoing medications.</li>
+<li>Let us know if the patient has a pacemaker or medical implant.</li>
+</ul>
+<h4>3. On Arrival at the Emergency Unit</h4>
+<p>Our triage nurse will assess the patient’s condition immediately and prioritize treatment based on medical urgency. Please provide accurate details about the patient’s symptoms, history, and medications to assist in diagnosis and treatment.</p>
+<h4>4. During Treatment</h4>
+<ul>
+<li>A family member may assist with registration and billing while treatment is ongoing.</li>
+<li>Keep personal belongings safe or hand them to a trusted relative.</li>
+<li>Our medical team will provide updates on test results and treatment progress.</li>
+</ul>
+<h4>5. Family Communication</h4>
+<p>Family members can wait in the Emergency Waiting Area while the patient receives treatment. Updates will be shared by our Emergency Medical Officer or Nursing Team. For safety reasons, please avoid entering restricted areas unless authorized by staff.</p>
+<h4>6. After Emergency Treatment</h4>
+<p>Once stabilized, the doctor will decide the next steps - discharge with treatment instructions, admission for observation, or referral for specialized treatment. Please collect all medical documents and prescriptions before leaving.</p>
+<h4>Our Commitment</h4>
+<p>At Nawaloka Hospitals, your health and safety come first. Our Emergency Treatment Unit is equipped with advanced life-support systems, specialist doctors, and experienced nurses - ready to respond with treatment, compassion, and expertise at any hour.</p>
+<h3>Emergency Ambulance Videos</h3>
+<p>Learn how to stay calm and act fast in emergencies. Watch these short guides to prepare yourself and your loved ones for unexpected situations.</p>
+<span>ETU Ambulance - YouTube</span>
+<button>Tap to unmute</button>
+<a href="https://www.youtube.com/watch?v=am7zUl-srXU">ETU Ambulance</a>
+<a href="https://www.youtube.com/channel/UCclAjanYdfAogIC0Bsx1Kew">Nawaloka Hospital Colombo</a>
+<span>Nawaloka Hospital Colombo</span>
+<span>17.4K subscribers</span>
+<button href="https://www.youtube.com/watch?v=am7zUl-srXU">Watch on</button>
+<h4>Nawaloka Emergency Ambulance Service</h4>
+<p>Bringing hospital-grade treatment to your doorstep when you need it most.</p>
+<span>Emergency Ambulance Unit - YouTube</span>
+<button>Tap to unmute</button>
+<a href="https://www.youtube.com/watch?v=hKkcLHM2S20">Emergency Ambulance Unit</a>
+<a href="https://www.youtube.com/channel/UCclAjanYdfAogIC0Bsx1Kew">Nawaloka Hospital Colombo</a>
+<span>Nawaloka Hospital Colombo</span>
+<span>17.4K subscribers</span>
+<button href="https://www.youtube.com/watch?v=hKkcLHM2S20">Watch on</button>
+<h4>Nawaloka Emergency Ambulance Service</h4>
+<p>Dedicated to saving lives with compassion, precision, and round-the-clock service.</p>
+<h4>Contact Details</h4>
+<p>Phone: +94 77 951 1929</p>
+<p>Hotline: 0115 577 222</p>
+<p>Service Hours: 24 hours</p>
+<p>Email: nawaloka@slt.lk</p>
+<h4>Location</h4>
+<p>Ground Floor, Main Building, Nawaloka Hospitals PLC, Colombo 02, Sri Lanka</p>
+<p>Accessible via all major city routes for rapid emergency access.</p>

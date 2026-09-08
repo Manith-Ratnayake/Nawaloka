@@ -1,0 +1,56 @@
+==================== CHUNK 001 ====================
+
+<span>Nawaloka Hospitals PLC - Colombo</span>
+<h2>Laboratory Tests</h2>
+<p>Choose your laboratory test, reserve your preferred date, upload your referral when required, and continue securely to payment.</p>
+<p>Easy Test Search</p>
+<p>Secure Booking</p>
+<p>Convenient Payment</p>
+
+==================== CHUNK 002 ====================
+
+<span>SIMPLE • SECURE • CONVENIENT</span>
+<h2>Laboratory Test Reservation</h2>
+<p>Choose your lab test and reserve a date in advance to reduce waiting time.</p>
+
+==================== CHUNK 003 ====================
+
+<h2>Easy Online Reservation</h2>
+<p>Search laboratory tests by test code or description</p>
+<p>View the applicable test charge before continuing</p>
+<p>Choose your preferred laboratory test date in advance</p>
+
+==================== CHUNK 004 ====================
+
+<h2>How it Works</h2>
+<p>STEP 01</p>
+<p>Search and select your test.</p>
+<p>STEP 02</p>
+<p>Choose a date.</p>
+<p>STEP 03</p>
+<p>Enter your details.</p>
+<p>STEP 04</p>
+<p>Upload referral (optional).</p>
+<p>STEP 05</p>
+<p>Confirm booking.</p>
+<p>Need Assistance?</p>
+
+==================== CHUNK 005 ====================
+
+<h2>0115 777 777</h2>
+<p>Direct Contact</p>
+
+==================== CHUNK 006 ====================
+
+<span>ONLINE LAB REQUEST</span>
+<h2>Lab Test Booking</h2>
+<p>Select your laboratory test and complete the details below to continue with your booking.</p>
+<span>1</span>
+<p>Select Test</p>
+<span>2</span>
+<p>Complete Details</p>
+<span>3</span>
+<p>Continue to Payment</p>
+<p>Search using the laboratory test code or description, then select the required test from the list.</p>
+<p>Laboratory Test Booking</p>
+<p>Select your required laboratory test, complete your patient information and continue securely to the payment page.</p>

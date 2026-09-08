@@ -1,0 +1,57 @@
+==================== CHUNK 001 ====================
+
+<span>Nawaloka Hospitals PLC - Colombo</span>
+<h2>Service Bookings</h2>
+<p>Reserve your required hospital service online, upload your prescription when necessary, and securely proceed with payment.</p>
+<p>Secure Request</p>
+<p>Easy Reservation</p>
+<p>Hospital Confirmation</p>
+
+==================== CHUNK 002 ====================
+
+<span>SIMPLE • SECURE • CONVENIENT</span>
+<h2>Medical Services Reservation</h2>
+<p>Nawaloka Hospitals Colombo offers a secure and convenient online medical service reservation facility. Patients can pre-book required services in advance, helping to minimize waiting times and ensuring a seamless hospital experience.</p>
+<p>Skip the hassle and book your appointment online with Nawaloka Hospitals Colombo. Our secure platform ensures fast access to services, easy medication support, and smooth coordination throughout your visit. Save valuable time and confirm your booking in just a few clicks!</p>
+
+==================== CHUNK 003 ====================
+
+<h2>Why Online Booking?</h2>
+<p>Control at your fingertips - manage your health on your schedule</p>
+<p>No waiting in lines - your appointment is reserved before you arrive</p>
+<p>Confidence guaranteed - instant confirmation, zero uncertainty</p>
+
+==================== CHUNK 004 ====================
+
+<h2>How it Works</h2>
+<p>STEP 01</p>
+<p>Select your service</p>
+<p>STEP 02</p>
+<p>Choose appointment date &amp; time slot</p>
+<p>STEP 03</p>
+<p>Enter your personal details and contact info</p>
+<p>STEP 04</p>
+<p>Upload any necessary prescriptions. Accepted formats: PDF, JPG, PNG, JPEG - Max size: 5MB</p>
+<p>STEP 05</p>
+<p>Make an advance payment (optional) and confirm booking</p>
+<p>Need Assistance?</p>
+
+==================== CHUNK 005 ====================
+
+<h2>0115 777 777</h2>
+<p>Direct Contact</p>
+
+==================== CHUNK 006 ====================
+
+<span>ONLINE REQUEST</span>
+<h2>Service Bookings</h2>
+<p>Complete the details below to submit your service request securely.</p>
+<span>1</span>
+<p>Submit Request</p>
+<span>2</span>
+<p>Make Payment</p>
+<span>3</span>
+<p>Hospital Confirms</p>
+<p>Select your preferred booking time slot below. After your request is received, the hospital will contact you to confirm the exact appointment time.</p>
+<p>What happens after submission?</p>
+<p>Once your request and payment are received, the Nawaloka Hospitals team will contact you and confirm your appointment with the exact time.</p>

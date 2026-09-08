@@ -1,0 +1,9 @@
+==================== CHUNK 001 ====================
+
+<h1>Online Payments</h1>
+<p>Secure and Convenient Online Payment Options for Nawaloka Hospital Services</p>
+<label>Payment Type</label>
+<option>Select Payment Type</option>
+<option>In-patient payment</option>
+<option>Service Bookings (MRI, CT, etc.)</option>
+<option>Laboratory Testing Payments</option>

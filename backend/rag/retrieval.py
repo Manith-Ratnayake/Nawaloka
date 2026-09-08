@@ -1,54 +1,70 @@
-import os
-from urllib.parse import urlparse
-
-from opensearchpy import OpenSearch, RequestsHttpConnection
+from core.clients import get_opensearch_client
+from core.settings import settings
 
 
-OPENSEARCH_INDEX = os.getenv("OPENSEARCH_INDEX", "nawaloka")
-RETRIEVAL_TOP_K = int(os.getenv("RETRIEVAL_TOP_K", "20"))
-
-
-def get_opensearch_client() -> OpenSearch:
-    url = os.getenv("OPENSEARCH_HOST")
-
-    if not url:
-        raise RuntimeError("OPENSEARCH_HOST is not set")
-
-    parsed = urlparse(url)
-
-    if not parsed.hostname:
-        raise RuntimeError("Invalid OPENSEARCH_HOST")
-
-    if not parsed.username or not parsed.password:
-        raise RuntimeError("OPENSEARCH_HOST must contain Bonsai username and password")
-
-    return OpenSearch(
-        hosts=[{"host": parsed.hostname, "port": parsed.port or 443}],
-        http_auth=(parsed.username, parsed.password),
-        use_ssl=parsed.scheme == "https",
-        verify_certs=True,
-        connection_class=RequestsHttpConnection,
-        timeout=30,
-    )
-
-
-def retrieve_chunks(query_vector: list[float], top_k: int = RETRIEVAL_TOP_K) -> list[dict]:
+def retrieve_chunks(query: str, query_vector: list[float], top_k: int | None = None) -> list[dict]:
+    top_k = top_k or settings.retrieval_top_k
+    candidate_k = top_k * 2
     client = get_opensearch_client()
 
-    response = client.search(
-        index=OPENSEARCH_INDEX,
+    vector_response = client.search(
+        index=settings.opensearch_index,
         body={
-            "size": top_k,
+            "size": candidate_k,
             "query": {
                 "knn": {
                     "embedding": {
                         "vector": query_vector,
-                        "k": top_k,
+                        "k": candidate_k,
                     }
                 }
             },
         },
     )
 
-    body = response.body if hasattr(response, "body") else response
-    return body.get("hits", {}).get("hits", [])
+    keyword_response = client.search(
+        index=settings.opensearch_index,
+        body={
+            "size": candidate_k,
+            "query": {
+                "match": {
+                    "content": {
+                        "query": query,
+                    }
+                }
+            },
+        },
+    )
+
+    vector_body = vector_response.body if hasattr(vector_response, "body") else vector_response
+    keyword_body = keyword_response.body if hasattr(keyword_response, "body") else keyword_response
+
+    vector_hits = vector_body.get("hits", {}).get("hits", [])
+    keyword_hits = keyword_body.get("hits", {}).get("hits", [])
+
+    return reciprocal_rank_fusion(vector_hits, keyword_hits, top_k)
+
+
+def reciprocal_rank_fusion(vector_hits: list[dict], keyword_hits: list[dict], top_k: int, k: int = 60) -> list[dict]:
+    scores = {}
+    documents = {}
+
+    for rank, hit in enumerate(vector_hits, start=1):
+        doc_id = hit["_id"]
+        scores[doc_id] = scores.get(doc_id, 0) + 1 / (k + rank)
+        documents[doc_id] = hit
+
+    for rank, hit in enumerate(keyword_hits, start=1):
+        doc_id = hit["_id"]
+        scores[doc_id] = scores.get(doc_id, 0) + 1 / (k + rank)
+        documents[doc_id] = hit
+
+    ranked_ids = sorted(scores, key=scores.get, reverse=True)[:top_k]
+
+    results = []
+    for doc_id in ranked_ids:
+        hit = documents[doc_id]
+        hit["_score"] = scores[doc_id]
+        results.append(hit)
+
+    return results

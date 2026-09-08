@@ -16,5 +16,9 @@ reranker:
   model: "qwen3-rerank"
   top_n: 5
 
-chat:
+query_agent:
+  model: "qwen3.7-flash"
+  max_subqueries: 4
+
+sql_agent:
   model: "qwen3.7-flash"

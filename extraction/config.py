@@ -1,5 +1,7 @@
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent
+
 FIRECRAWL_WAIT_FOR_MS = 12000
 FIRECRAWL_PAGE_TIMEOUT_MS = 90000
 FIRECRAWL_CLIENT_TIMEOUT_SECONDS = 120
@@ -11,4 +13,4 @@ FIRECRAWL_CONCURRENCY = 5
 CAPTURE_MIN_TEXT = 200
 CAPTURE_RETRY_WAIT_MS = 18000
 
-OUTPUT_DIR = Path("chunk_output")
+OUTPUT_DIR = BASE_DIR / "extraction_output"

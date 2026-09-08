@@ -1,0 +1,398 @@
+==================== CHUNK 001 ====================
+
+<h1>Laboratory</h1>
+<p>Fast, precise lab testing you can trust for better health decisions.</p>
+
+==================== CHUNK 002 ====================
+
+<h1>Trusted Medical Labs Near You for Accurate &amp; Reliable Diagnostic Testing</h1>
+<p>ISO-Accredited Standards</p>
+<p>24/7 Service</p>
+<p>40+ Years of Excellence</p>
+<p>If you’re searching for labs near me in Sri Lanka with fast results, international accreditation, and trusted medical expertise, Nawaloka Laboratory - Colombo 02 is your reliable choice. With over 40 years of proven excellence, we provide accurate diagnostic testing for patients, doctors, and corporate clients, 24/7. From routine blood tests to advanced molecular diagnostics, our medical laboratory delivers results you can trust, exactly when you need them.</p>
+
+==================== CHUNK 003 ====================
+
+<h2>Medical Labs Near Me with ISO-Accredited Accuracy</h2>
+<p>As one of the most trusted medical labs near me in Colombo and the surrounding regions, we combine cutting-edge technology with strict quality standards to ensure precise and reliable results.</p>
+
+==================== CHUNK 004 ====================
+
+<h2>Why Patients Choose Nawaloka Laboratory</h2>
+<p>Trusted diagnostic excellence with international standards, advanced technology, and patient-focused treatment.</p>
+<h3>ISO 15189:2022 Accredited</h3>
+<p>First laboratory in Sri Lanka to achieve ISO 15189:2022 accreditation, ensuring global quality standards.</p>
+<h3>SLAB Approved Laboratory</h3>
+<p>Accredited by the Sri Lanka Accreditation Board (SLAB) for reliable and accurate diagnostic services.</p>
+<h3>40+ Years of Excellence</h3>
+<p>Over four decades of trusted diagnostic expertise serving patients across Sri Lanka.</p>
+<h3>30+ Specialist Consultants</h3>
+<p>Experienced consultants across multiple disciplines ensuring expert interpretation and service.</p>
+<h3>International Quality Programs</h3>
+<p>Participation in External Quality Assessment (EQA) and Internal Quality Control programs for accuracy.</p>
+<h3>Convenient Colombo Location</h3>
+<p>Easily accessible laboratory in Colombo 02, serving patients from Colombo 01–07 and beyond.</p>
+<p>Diagnostic Services</p>
+
+==================== CHUNK 005 ====================
+
+<h2>Comprehensive Diagnostic Testing Under One Roof</h2>
+<p>We offer a complete range of laboratory investigations, eliminating the need to visit multiple labs.</p>
+<p>Clinical Biochemistry and Chemical Pathology</p>
+<p>Microbiology and Serology</p>
+<p>Immunology</p>
+<p>Molecular Biology</p>
+<p>Histopathology</p>
+<p>All tests are processed using advanced analyzers, validated methods, and continuous quality monitoring.</p>
+<p>Premium Laboratory Services</p>
+<p>From routine pathology to specialized diagnostic disciplines, our laboratory brings multiple services together in one trusted destination.</p>
+<p>Patient Convenience</p>
+
+==================== CHUNK 006 ====================
+
+<h2>Convenient Lab Services Designed Around You</h2>
+<p>We remove the stress and delays often associated with laboratory testing.</p>
+<p>24/7 home sample collection across Colombo</p>
+<p>Drive-through laboratory facility for quick testing</p>
+<p>Well-organized OPD services</p>
+<p>Comfortable blood collection by trained professionals</p>
+<p>Fast turnaround times for reports</p>
+<p>Premium Laboratory Services</p>
+<p>Every step is designed to reduce patient stress, improve accessibility, and deliver a smoother testing experience.</p>
+<p>Medical Expertise</p>
+
+==================== CHUNK 007 ====================
+
+<h2>Advanced Technology Backed by Medical Expertise</h2>
+<p>Our laboratory is supported by a multidisciplinary team of consultants who ensure your test results are clinically meaningful.</p>
+<p>Advanced diagnostic platforms</p>
+<p>Consultant-reviewed reports</p>
+<p>Customized health screening packages</p>
+<p>Secure online report access anytime</p>
+<p>Premium Laboratory Services</p>
+<p>Our advanced technology is strengthened by consultant oversight, helping ensure every report is clinically meaningful and reliable.</p>
+
+==================== CHUNK 008 ====================
+
+<h2>A Medical Laboratory You Can Trust</h2>
+<p>Accuracy ensured through international quality standards and precision diagnostics</p>
+<p>Strict safety protocols with advanced infection control and patient wellness measures</p>
+<p>Transparent pricing with no hidden charges for all laboratory tests</p>
+<p>Trusted by doctors and hospitals across Sri Lanka for reliable results</p>
+<p>Decades of experience delivering dependable laboratory services</p>
+<p>Committed to reliability, consistency, and patient-focused treatment</p>
+
+==================== CHUNK 009 ====================
+
+<h2>Visit One of the Most Trusted Labs Near Me in Colombo</h2>
+<p>Whether you’re searching for labs near me, routine blood tests, or advanced diagnostics, Nawaloka Laboratory is ready to serve you with confidence and service.</p>
+<h3>Book Your Test Today</h3>
+<button>Enquire Now</button>
+<button>Get a Quote</button>
+
+==================== CHUNK 010 ====================
+
+<h2>Frequently Asked Questions</h2>
+<button>Which is the best lab near me in Colombo?</button>
+<p>Nawaloka Laboratory in Colombo 02 is one of the most trusted labs near you, offering ISO-15189:2022 accredited testing with fast and accurate results.</p>
+
+==================== CHUNK 011 ====================
+
+<h2>Frequently Asked Questions</h2>
+<button>Do you offer home sample collection in Sri Lanka?</button>
+<p>Yes. We provide 24/7 home sample collection across Colombo and surrounding areas for maximum convenience.</p>
+
+==================== CHUNK 012 ====================
+
+<h2>Frequently Asked Questions</h2>
+<button>Are your lab reports accepted by doctors and hospitals?</button>
+<p>Yes. Our reports are internationally standardized and widely accepted by doctors, hospitals, and insurance providers.</p>
+
+==================== CHUNK 013 ====================
+
+<h2>Frequently Asked Questions</h2>
+<button>How fast can I get my lab test results?</button>
+<p>Most routine tests are delivered within the same day or within 24 hours, depending on the investigation.</p>
+
+==================== CHUNK 014 ====================
+
+<h2>Frequently Asked Questions</h2>
+<button>Is Nawaloka Laboratory ISO certified?</button>
+<p>Yes. We are ISO 15189:2022 accredited, the first laboratory in Sri Lanka to achieve this certification.</p>
+<p>Home Sample Collection</p>
+
+==================== CHUNK 015 ====================
+
+<h2>Laboratory Services at Your Convenience</h2>
+<p>Nawaloka Laboratory offers convenient access to diagnostic services through our islandwide laboratory network and home sample collection support.</p>
+<button>View Transport Fees</button>
+<img src="https://www.nawaloka.com/static/media/lab-pic.211b19d254dbfedeef55.jpg" alt="Nawaloka laboratory sample collection service">
+<button href="tel:0761634118">076 163 4118</button>
+<button href="tel:0742073612">074 207 3612</button>
+<p>Islandwide Laboratory Network</p>
+
+==================== CHUNK 016 ====================
+
+<h2>Our Laboratories</h2>
+<p>Find your nearest Nawaloka laboratory or collection centre for reliable diagnostic testing and convenient access to our services.</p>
+<p>Showing 26 of 26 locations</p>
+
+==================== CHUNK 017 ====================
+
+<h2>Kandy Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 110, Peradeniya Road, Kandy</p>
+<a href="mailto:labkandyincharge@nawaloka.com">labkandyincharge@nawaloka.com</a>
+<a href="tel:0817294628">0817294628</a>
+<p>|</p>
+<a href="tel:0741243120">0741243120</a>
+<button href="https://maps.app.goo.gl/qd5Zf5GkusnVvDFN8">Get Directions</button>
+
+==================== CHUNK 018 ====================
+
+<h2>Akurana Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>The Channel Centre-Akurana, No 216/6, Matale Road, Akurana</p>
+<a href="mailto:labakurana@nawaloka.com">labakurana@nawaloka.com</a>
+<a href="tel:0817301139">0817301139</a>
+<button href="https://maps.app.goo.gl/1wvd8qfNNv19YCBG7">Get Directions</button>
+
+==================== CHUNK 019 ====================
+
+<h2>Anuradapura Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 11, Maithripala Senanayake Mawatha, Anuradhapura</p>
+<a href="mailto:labai@nawaloka.com">labai@nawaloka.com</a>
+<a href="tel:0743173364">0743173364</a>
+<p>|</p>
+<a href="tel:0257284468">0257284468</a>
+<p>|</p>
+<a href="tel:0769037729">0769037729</a>
+<button href="https://maps.app.goo.gl/SK8wg46XUnKpnT3Q8">Get Directions</button>
+
+==================== CHUNK 020 ====================
+
+<h2>Medawachchiya Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>In front of the Hospital, Medawachchiya</p>
+<a href="mailto:labmedawachchiya@nawaloka.com">labmedawachchiya@nawaloka.com</a>
+<a href="tel:0254552912">0254552912</a>
+<p>|</p>
+<a href="tel:0769037729">0769037729</a>
+<button href="https://maps.app.goo.gl/dXu9s5RmbgonkZ497">Get Directions</button>
+
+==================== CHUNK 021 ====================
+
+<h2>Batticaloa Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 75, Munai Steet, Batticaloa</p>
+<a href="mailto:labbi@nawaloka.com">labbi@nawaloka.com</a>
+<a href="tel:0657284217">0657284217</a>
+<p>|</p>
+<a href="tel:0743781341">0743781341</a>
+<button href="https://maps.app.goo.gl/jeeY93p6xh9ErYup6">Get Directions</button>
+
+==================== CHUNK 022 ====================
+
+<h2>Batticoloa - Siloam Hospital Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>Siloam Hospital, No 63, Station road, Batticaloa</p>
+<a href="mailto:labsiloam@nawaloka.com">labsiloam@nawaloka.com</a>
+<a href="tel:0654548420">0654548420</a>
+<button href="https://maps.app.goo.gl/CC48obJnB6aYMDTb9">Get Directions</button>
+
+==================== CHUNK 023 ====================
+
+<h2>Galle Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 30, Wakwella Rd, Galle</p>
+<a href="mailto:labgalle@nawaloka.com">labgalle@nawaloka.com</a>
+<a href="tel:0914944775">0914944775</a>
+<p>|</p>
+<a href="tel:0742072367">0742072367</a>
+<p>|</p>
+<a href="tel:0741765163">0741765163</a>
+<button href="https://maps.app.goo.gl/5hrL1vGB2AbRkJLa9">Get Directions</button>
+
+==================== CHUNK 024 ====================
+
+<h2>Hambanthota Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 331, U.C.Shopping complex, Kasim Mw, Hambanthota</p>
+<a href="mailto:labhambanthota@nawaloka.com">labhambanthota@nawaloka.com</a>
+<a href="tel:0474935363">0474935363</a>
+<p>|</p>
+<a href="tel:0760441229">0760441229</a>
+<button href="https://maps.app.goo.gl/GvJBdud7EkyWdt4S9">Get Directions</button>
+
+==================== CHUNK 025 ====================
+
+<h2>Maggona Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 408/A, Maggona Medical Center, Galle Rd, Maggona</p>
+<a href="mailto:labmaggona@nawaloka.com">labmaggona@nawaloka.com</a>
+<a href="tel:0344941889">0344941889</a>
+<button href="https://maps.app.goo.gl/3bdy8oX3B8DUWMJm7">Get Directions</button>
+
+==================== CHUNK 026 ====================
+
+<h2>Matara Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 16, Esplanade Road,Uyanwatta,Matara</p>
+<a href="mailto:labmatara@nawaloka.com">labmatara@nawaloka.com</a>
+<a href="tel:0414933081">0414933081</a>
+<p>|</p>
+<a href="tel:0779283646">0779283646</a>
+<button href="https://maps.app.goo.gl/KPH4QFJe9b4E72Mm8">Get Directions</button>
+
+==================== CHUNK 027 ====================
+
+<h2>Imaduwa Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>Jayakodi Pharmacy &amp; Channel Centre,Yakkalamulla Road, Imaduwa</p>
+<a href="mailto:labimaduwa@nawaloka.com">labimaduwa@nawaloka.com</a>
+<a href="tel:0917301904">0917301904</a>
+<button href="https://maps.app.goo.gl/A9CxCkp1s4VKgkr38">Get Directions</button>
+
+==================== CHUNK 028 ====================
+
+<h2>Karapitiya - Diabetes Centre &amp; Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>Hiribura Road, Karapitiya, Galle</p>
+<a href="mailto:labkarapitiya@nawaloka.com">labkarapitiya@nawaloka.com</a>
+<a href="tel:0917301455">0917301455</a>
+<button href="https://maps.app.goo.gl/QYRcMfyayNTFLUBf7">Get Directions</button>
+
+==================== CHUNK 029 ====================
+
+<h2>Matara - Health guard Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>Health guard channel centre, No 11, Station Road, Matara</p>
+<a href="mailto:labhealthguard@nawaloka.com">labhealthguard@nawaloka.com</a>
+<a href="tel:0417682370">0417682370</a>
+<button href="https://maps.app.goo.gl/shJ3AjLWSVT4kZYp8">Get Directions</button>
+
+==================== CHUNK 030 ====================
+
+<h2>IDH Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 53/9A, Kotikawatta Rd, Gothatuwa</p>
+<a href="mailto:labidh@nawaloka.com">labidh@nawaloka.com</a>
+<a href="tel:0114686660">0114686660</a>
+<button href="https://maps.app.goo.gl/QY4emDNBmGNZoE3M7">Get Directions</button>
+
+==================== CHUNK 031 ====================
+
+<h2>Kolonnawa Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 266, Kolonnawa Road, Kolonnawa</p>
+<a href="mailto:labkolonnawa@nawaloka.com">labkolonnawa@nawaloka.com</a>
+<a href="tel:0117112807">0117112807</a>
+<button href="https://maps.app.goo.gl/2dfguq2FDnE42Hsp8">Get Directions</button>
+
+==================== CHUNK 032 ====================
+
+<h2>Elakanda Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 16, Hendala Rd, Elakanda</p>
+<a href="mailto:labelakanda@nawaloka.com">labelakanda@nawaloka.com</a>
+<a href="tel:0114335558">0114335558</a>
+<button href="https://maps.app.goo.gl/KoM4MAjmvxobDJBr9">Get Directions</button>
+
+==================== CHUNK 033 ====================
+
+<h2>Pannipitiya Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 100/100, Borella road, Depanama, Pannipitiya</p>
+<a href="mailto:labpannipitiya@.nawaloka.com">labpannipitiya@.nawaloka.com</a>
+<a href="tel:0117871944">0117871944</a>
+<button href="https://maps.app.goo.gl/iXsNzkLqZ3pT9Xdr9">Get Directions</button>
+
+==================== CHUNK 034 ====================
+
+<h2>Homagama Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 195/B, Hospital Junction, Galavila road, Homagama</p>
+<a href="mailto:labhomagamaincharge@nawaloka.com">labhomagamaincharge@nawaloka.com</a>
+<a href="tel:0117112927">0117112927</a>
+<p>|</p>
+<a href="tel:0767398725">0767398725</a>
+<button href="https://maps.app.goo.gl/cAH68ZjroF9j6yrv8">Get Directions</button>
+
+==================== CHUNK 035 ====================
+
+<h2>Rathmalana Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 6/A, Old Airport Road, Rathmalana</p>
+<a href="mailto:labrathmalana@nawaloka.com">labrathmalana@nawaloka.com</a>
+<a href="tel:0117112938">0117112938</a>
+<button href="https://maps.app.goo.gl/MWaoLu79QgHLKpYZ7">Get Directions</button>
+
+==================== CHUNK 036 ====================
+
+<h2>Piliyandala Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 291, Moratuwa Rd, Swarapola, Piliyandala</p>
+<a href="mailto:labpiliyandala@nawaloka.com">labpiliyandala@nawaloka.com</a>
+<a href="tel:0117924908">0117924908</a>
+<button href="https://maps.app.goo.gl/tHZXXiBgBEewdbmy9">Get Directions</button>
+
+==================== CHUNK 037 ====================
+
+<h2>Bopitiya Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 07 Colombo rd, Bopitiya</p>
+<a href="mailto:labbopitiya@nawaloka.com">labbopitiya@nawaloka.com</a>
+<a href="tel:0117112059">0117112059</a>
+<button href="https://maps.app.goo.gl/xQ2pDeeps4XAzc4M6">Get Directions</button>
+
+==================== CHUNK 038 ====================
+
+<h2>Ragama Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 39/A, Kadawatha Rd, Ragama</p>
+<a href="mailto:labri@nawaloka.com">labri@nawaloka.com</a>
+<a href="tel:0117112873">0117112873</a>
+<p>|</p>
+<a href="tel:0117110172">0117110172</a>
+<p>|</p>
+<a href="tel:0760695189">0760695189</a>
+<button href="https://maps.app.goo.gl/4vJzzLx7NM9sp73G7">Get Directions</button>
+
+==================== CHUNK 039 ====================
+
+<h2>Seeduwa Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 532, Mukalangauwa, Seeduwa</p>
+<a href="mailto:labseeduwaincharge@nawaloka.com">labseeduwaincharge@nawaloka.com</a>
+<a href="tel:0317934117">0317934117</a>
+<button href="https://maps.app.goo.gl/q7zix4J2XoDRorwU8">Get Directions</button>
+
+==================== CHUNK 040 ====================
+
+<h2>Wennappuwa Laboratory</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>The Cure Medical Center, 158/A, Colombo Road, Kolinjadiya, Wennappuwa</p>
+<a href="mailto:labwennappuwaincharge@nawaloka.com">labwennappuwaincharge@nawaloka.com</a>
+<a href="tel:0314939981">0314939981</a>
+<p>|</p>
+<a href="tel:0760610980">0760610980</a>
+<button href="https://maps.app.goo.gl/Tb3Z3wTMT36rdG6j6">Get Directions</button>
+
+==================== CHUNK 041 ====================
+
+<h2>Peoples Hospital Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 503, Negambo Road, Ragama</p>
+<a href="mailto:labpeopleshospital@nawaloka.com">labpeopleshospital@nawaloka.com</a>
+<a href="tel:0117110694">0117110694</a>
+<button href="https://maps.app.goo.gl/izJQ7EtgPFfz25nv5">Get Directions</button>
+
+==================== CHUNK 042 ====================
+
+<h2>Kochchikade Collection Center</h2>
+<p>Nawaloka Laboratory Network</p>
+<p>No 152, Pallansena Mw, Kochchikade</p>
+<a href="mailto:labkochchikade@nawaloka.com">labkochchikade@nawaloka.com</a>
+<a href="tel:0314552756">0314552756</a>
+<button href="https://maps.app.goo.gl/hJDs9Rhn4928S3cKA">Get Directions</button>

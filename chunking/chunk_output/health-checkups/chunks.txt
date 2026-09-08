@@ -1,0 +1,53 @@
+==================== CHUNK 001 ====================
+
+<p>Health Checks</p>
+<h2>Categories</h2>
+<button>Men&#x27;s Health Checks</button>
+<button>Women&#x27;s Health Checks</button>
+<h3>Why Regular Health Checks Matter</h3>
+<p>Regular health screenings help detect diseases early, manage risk factors, and promote long-term well-being. Choose a package that fits your age, gender, and lifestyle for comprehensive care.</p>
+
+==================== CHUNK 002 ====================
+
+<h1>Men’s Health Check Packages</h1>
+<p>Explore our carefully curated health check-up packages designed to cover key medical screenings, preventive diagnostics, and personalized wellness evaluations.</p>
+<img src="https://nawalokacare.com/uploads/profile/so40.jpg" alt="Standard Over 40 Men package">
+
+==================== CHUNK 003 ====================
+
+<h2>Standard Over 40 Men</h2>
+<p>Complete health screening for optimal wellness.</p>
+<p>LKR 38500</p>
+<button>Add to Cart</button>
+<img src="https://nawalokacare.com/uploads/profile/cu40.jpg" alt="Classic Under 40 Men package">
+
+==================== CHUNK 004 ====================
+
+<h2>Classic Under 40 Men</h2>
+<p>Complete health screening for optimal wellness.</p>
+<p>LKR 30300</p>
+<button>Add to Cart</button>
+<img src="https://nawalokacare.com/uploads/profile/pu40.jpg" alt="Premier Under 40 Men package">
+
+==================== CHUNK 005 ====================
+
+<h2>Premier Under 40 Men</h2>
+<p>Complete health screening for optimal wellness.</p>
+<p>LKR 45000</p>
+<button>Add to Cart</button>
+<img src="https://nawalokacare.com/uploads/profile/sco50.jpg" alt="Senior Citizens Over 50 Men package">
+
+==================== CHUNK 006 ====================
+
+<h2>Senior Citizens Over 50 Men</h2>
+<p>Complete health screening for optimal wellness.</p>
+<p>LKR 74800</p>
+<button>Add to Cart</button>
+<img src="https://nawalokacare.com/uploads/profile/cso40.jpg" alt="Comprehensive Over 40 Men (Cancer Screening) package">
+
+==================== CHUNK 007 ====================
+
+<h2>Comprehensive Over 40 Men (Cancer Screening)</h2>
+<p>Complete health screening for optimal wellness.</p>
+<p>LKR 64900</p>
+<button>Add to Cart</button>

@@ -1,0 +1,95 @@
+==================== CHUNK 001 ====================
+
+<h1>Theater</h1>
+<p>Best Surgical Theaters in Colombo</p>
+
+==================== CHUNK 002 ====================
+
+<h2>Why choose Nawaloka Surgical Theatres</h2>
+<p>Premium infrastructure, clinical discipline, and coordinated treatment - built around patient safety.</p>
+<p>24/7 Theatre Readiness</p>
+<p>Round-the-clock availability for planned and emergency surgeries.</p>
+<p>ICU Collaboration</p>
+<p>Seamless escalation and post-operative support with critical treatment teams.</p>
+<p>Advanced Sterilization</p>
+<p>Global-standard infection prevention and strict safety protocols.</p>
+<p>Expert Multi-Disciplinary Teams</p>
+<p>Surgeons, anesthetists, nurses, and recovery staff working in coordination.</p>
+
+==================== CHUNK 003 ====================
+
+<h1>Sri Lanka’s Best Surgical Theatres</h1>
+<h6>Where Surgical Precision Meets Compassionate Treatment</h6>
+<p>At Nawaloka Hospitals Colombo 02, our surgical theatres are a cornerstone of our commitment to clinical excellence. Recognized among the best surgical theatres in Colombo, we provide a safe, technologically advanced environment where lives are transformed every day through expert surgical treatment.<br><br> Whether you&#x27;re preparing for a planned procedure or facing an emergency, you can trust that your surgery will be performed in one of Sri Lanka’s most advanced operating theatres, supported by highly skilled teams who prioritize your safety and wellbeing.</p>
+<h6>A World-Class Surgical Environment</h6>
+<p>Our modern surgical complex is equipped with cutting-edge technology, precision monitoring systems, and state-of-the-art sterilization protocols that meet global standards. Each operating room is designed to reduce infection risk, support complex procedures, and provide surgeons with the tools they need for optimal outcomes.</p>
+<p>From minimally invasive laparoscopic surgeries to high-precision neurosurgical and cardiac procedures, Nawaloka’s surgical theatres are ready for it all - 24/7.</p>
+<h6>Expert Teams. Trusted Outcomes.</h6>
+<p>Every procedure at Nawaloka is carried out by some of the most trusted surgical experts in Colombo, supported by experienced anesthesiologists, surgical nurses, and post-operative treatment staff. Our multi-disciplinary teams work together to ensure seamless, coordinated service at every stage of your surgical journey.</p>
+<ul>
+<li>General &amp; Laparoscopic Surgery</li>
+<li>Orthopedic &amp; Joint Replacements</li>
+<li>Neurosurgery</li>
+<li>Cardiac &amp; Thoracic Surgery</li>
+<li>Cosmetic &amp; Reconstructive Surgery</li>
+<li>Gastrointestinal &amp; Colorectal Procedures</li>
+<li>Pediatric &amp; Urological Surgeries</li>
+<li>Emergency Trauma Surgeries</li>
+</ul>
+<h6>Always Ready. Always Safe.</h6>
+<p>Our surgical theatres operate round-the-clock, ensuring we&#x27;re ready to handle even the most urgent cases with speed, accuracy, and treatment. Each procedure is backed by advanced patient monitoring, ICU collaboration, and strict safety protocols because your health and recovery are our highest priority.</p>
+<h6>Your Surgery. Our Expertise. Your Peace of Mind.</h6>
+<p>At Nawaloka, we believe that undergoing surgery should come with confidence, not fear. With decades of hospital experience, world-class infrastructure, and a deep commitment to compassionate service, we’re proud to offer one of the premier surgical facilities in Colombo 02.</p>
+
+==================== CHUNK 004 ====================
+
+<h2>Surgery Information &amp; Estimates</h2>
+<p>Contact the right coordinator based on your surgery type.</p>
+<p>Surgery Information &amp; Estimates</p>
+<p>077 499 1107</p>
+<button>Call</button>
+<p>Surgery types</p>
+<span>General Surgery</span>
+<span>Dental Surgery</span>
+<p>Surgery Information &amp; Estimates</p>
+<p>077 284 2986</p>
+<button>Call</button>
+<p>Surgery types</p>
+<span>Orthopedic Surgery</span>
+<p>Surgery Information &amp; Estimates</p>
+<p>077 070 0077</p>
+<button>Call</button>
+<p>Surgery types</p>
+<span>Gynecological Surgery</span>
+<span>Thoracic Surgery</span>
+<p>Surgery Information &amp; Estimates</p>
+<p>077 007 9079</p>
+<button>Call</button>
+<p>Surgery types</p>
+<span>Ophthalmological / Eye Surgery</span>
+<p>Surgery Information &amp; Estimates</p>
+<p>076 557 7111</p>
+<button>Call</button>
+<p>Surgery types</p>
+<span>Neuro surgery</span>
+<span>Pediatric Surgery</span>
+<p>Surgery Information &amp; Estimates</p>
+<p>074 294 7257</p>
+<button>Call</button>
+<p>Surgery types</p>
+<span>ENT Surgery</span>
+<span>Urology Surgery</span>
+<span>Plastic Surgery</span>
+<span>Vascular Surgery</span>
+<p>If you’re unsure which category applies, call any number above and we’ll guide you.</p>
+
+==================== CHUNK 005 ====================
+
+<h2>Call now for estimates</h2>
+<p>Speak to a coordinator and get guided to the correct surgical team.</p>
+<button>077 499 1107</button>
+<button>077 284 2986</button>
+<button>077 070 0077</button>
+<button>077 007 9079</button>
+<button>076 557 7111</button>
+<button>074 294 7257</button>

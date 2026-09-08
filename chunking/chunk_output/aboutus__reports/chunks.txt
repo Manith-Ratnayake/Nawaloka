@@ -1,0 +1,69 @@
+==================== CHUNK 001 ====================
+
+<span>Investor Information</span>
+<h1>Annual Reports</h1>
+<p>Explore Nawaloka Hospitals PLC annual reports, shareholder circulars, and corporate governance policies in one convenient location.</p>
+
+==================== CHUNK 002 ====================
+
+<span>Reports Library</span>
+<h2>Financial &amp; Annual Reports</h2>
+<p>View annual reports and shareholder circulars published by Nawaloka Hospitals PLC.</p>
+<img src="https://www.nawaloka.com/static/media/report25-26pic.fd9fdc03a700a63a8548.png" alt="Annual Report 2025-2026">
+<p>Annual Report</p>
+<h3>Annual Report 2025-2026</h3>
+<button>View More</button>
+<button>Shareholder Circular</button>
+<img src="https://www.nawaloka.com/static/media/report24-25pic.8b880d092023963af4e4.png" alt="Annual Report 2024-2025">
+<p>Annual Report</p>
+<h3>Annual Report 2024-2025</h3>
+<button>View More</button>
+<button>Shareholder Circular</button>
+<img src="https://www.nawaloka.com/static/media/report23-24pic.515fca995bf470715eec.png" alt="Annual Report 2023-2024">
+<p>Annual Report</p>
+<h3>Annual Report 2023-2024</h3>
+<button>View More</button>
+<button>Shareholder Circular</button>
+<img src="https://www.nawaloka.com/static/media/report22-23pic.2d5697734804643aeab6.png" alt="Annual Report 2022-2023">
+<p>Annual Report</p>
+<h3>Annual Report 2022-2023</h3>
+<button>View More</button>
+<button>Shareholder Circular</button>
+<img src="https://www.nawaloka.com/static/media/report21-22pic.5d825baf009179162e63.png" alt="Annual Report 2021-2022">
+<p>Annual Report</p>
+<h3>Annual Report 2021-2022</h3>
+<button>View More</button>
+<img src="https://www.nawaloka.com/static/media/report20-21pic.3efaa29131e0f3f1db60.png" alt="Annual Report 2020-2021">
+<p>Annual Report</p>
+<h3>Annual Report 2020-2021</h3>
+<button>View More</button>
+<img src="https://www.nawaloka.com/static/media/report19-20pic.fa4fd865ae09e73f78fb.png" alt="Annual Report 2019-2020">
+<p>Annual Report</p>
+<h3>Annual Report 2019-2020</h3>
+<button>View More</button>
+<img src="https://www.nawaloka.com/static/media/report18-19pic.8d79d4e917e617290e9a.png" alt="Annual Report 2018-2019">
+<p>Annual Report</p>
+<h3>Annual Report 2018-2019</h3>
+<button>View More</button>
+<img src="https://www.nawaloka.com/static/media/report17-18pic.4d3bb4b8522c950a07f8.png" alt="Annual Report 2017-2018">
+<p>Annual Report</p>
+<h3>Annual Report 2017-2018</h3>
+<button>View More</button>
+
+==================== CHUNK 003 ====================
+
+<span>Governance</span>
+<h2>Policies</h2>
+<p>Access corporate governance, compliance, disclosure, shareholder, risk management, and sustainability policy documents.</p>
+<a href="https://www.nawaloka.com/(a)-Policy-on-matters-relating-to-the-Board-of-Directors-NHL-(Approved).pdf">Policy on Matters Relating to the Board of Directors</a>
+<a href="https://www.nawaloka.com/(b)-Policy-on-Board-Committees-NHL-(Approved).pdf">Policy on Board Committees</a>
+<a href="https://www.nawaloka.com/(c)-Policy-on-Corporate-Governance-Nominations-and-Re-election-NHL-(Approved).pdf">Policy on Corporate Governance, Nominations, and Re-election</a>
+<a href="https://www.nawaloka.com/(d)-Board-Remuneration-Policy-NHL-(Approved).pdf">Policy on Remuneration</a>
+<a href="https://www.nawaloka.com/(e)-Policy-on-Internal-Code-of-Business-Conduct-&amp;-Ethics-NHL-(Approved).pdf">Policy on Internal Code of Business Conduct and Ethics for all Directors and Employees, including Policies on Trading in the Entity’s Listed Securities</a>
+<a href="https://www.nawaloka.com/(f)-Policy-on-Risk-Managment-and-Internal-Controls-NHL-(Approved).pdf">Policy on Risk Management and Internal Controls</a>
+<a href="https://www.nawaloka.com/(g)-Policy-on-Relations-with-Shareholders-and-Investors-NHL-(Approved).pdf">Policy on Relations with Shareholders and Investors</a>
+<a href="https://www.nawaloka.com/(h)-Policy-on-Environmental-Social-and-Governance-Sustainability-NHL-(Approved).pdf">Policy on Environmental, Social, and Governance (ESG) Sustainability</a>
+<a href="https://www.nawaloka.com/(i)-Policy-on-Control-and-Management-of-Company-Assets-and-Shareholder-Investments-NHL-(Approved).pdf">Policy on Control and Management of Company Assets and Shareholder Investments</a>
+<a href="https://www.nawaloka.com/(j)-Policy-on-Corporate-Disclosures-NHL-(Approved).pdf">Policy on Corporate Disclosures</a>
+<a href="https://www.nawaloka.com/(k)-Policy-on-Whistleblowing-NHL-(Approved).pdf">Policy on Whistleblowing</a>
+<a href="https://www.nawaloka.com/(l)-Anti-Bribery-&amp;-Corruption-Policy-NHL-(Approved).pdf">Policy on Anti-Bribery and Corruption</a>
