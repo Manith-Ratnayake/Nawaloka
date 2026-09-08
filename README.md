@@ -6,6 +6,14 @@ This project is an AI assistant for Nawaloka Hospitals. It answers questions usi
 
 The system combines Retrieval Augmented Generation, hybrid search, reranking, SQL querying, and a chat interface.
 
+
+## Live Deployment
+
+Frontend: https://nawaloka-hazel.vercel.app/
+Backend API: https://nawaloka-production.up.railway.app/
+
+
+
 ## How the project works
 
 1. Nawaloka website pages are collected using Firecrawl.

@@ -1,67 +1,128 @@
 # Chunking
 
-## Purpose
+## Overview
 
-The chunking stage converts extracted Nawaloka website content into smaller meaningful sections that can be indexed and retrieved by the RAG system.
+The chunking stage converts extracted Nawaloka website content into retrieval friendly chunks.
 
-This stage is deterministic and uses the structure of the extracted page instead of an LLM to decide chunk boundaries.
+The system uses **structure aware chunking** based on the HTML structure of each page instead of fixed character or token limits.
 
-## Process
+## Chunking Strategy
 
-1. Extracted HTML files are loaded from `extraction/extraction_output`.
+### 1. H1 and H2 Section Chunking
 
-2. The page is converted into structured content blocks.
+`h1` and `h2` headings define the main section boundaries.
 
-3. Major page sections are separated using `h1` and `h2` headings.
+A new chunk starts when a new `h1` or `h2` section begins. Content under that heading remains together until the next section boundary.
 
-4. Related content under each heading stays together in the same chunk.
+```text
+H2: Heart Centre
+Paragraph
+Paragraph
+List
 
-5. FAQ sections receive special handling.
+H2: Services
+Paragraph
+```
 
-6. FAQ questions are detected from `h3` headings or accordion buttons.
+becomes:
 
-7. Each FAQ question and its answer are stored as an individual FAQ chunk.
+```text
+Chunk 1
+Heart Centre
+Paragraph
+Paragraph
+List
 
-8. Empty or heading only chunks are removed.
+Chunk 2
+Services
+Paragraph
+```
 
-9. Final chunks are written to `chunk_output`.
+This keeps related website content together instead of splitting it based on arbitrary length.
 
-## Folder structure
+### 2. FAQ Chunking
+
+FAQ sections use a separate strategy.
+
+Each individual question and its answer becomes one chunk.
+
+Questions can be identified from `h3` headings or FAQ accordion buttons depending on the page structure.
+
+```text
+FAQ Question 1 + Answer 1 → Chunk 1
+FAQ Question 2 + Answer 2 → Chunk 2
+FAQ Question 3 + Answer 3 → Chunk 3
+```
+
+This allows individual FAQ answers to be retrieved directly without retrieving the entire FAQ section.
+
+### 3. Structure Preservation
+
+The original order of the webpage content is preserved.
+
+Paragraphs, lists, headings, buttons, and other related elements remain with the section they belong to.
+
+Empty chunks and sections containing only a heading are removed.
+
+## Chunking Flow
+
+```text
+Extracted HTML
+      ↓
+Load HTML blocks
+      ↓
+Detect H1 and H2 sections
+      ↓
+Create section based chunks
+      ↓
+Apply FAQ specific chunking
+      ↓
+Remove empty chunks
+      ↓
+Save chunks.txt
+```
+
+## Folder Structure
 
 ```text
 chunking/
-    processing/      Block loading and chunk creation
-    output/          Chunk output handling
-    chunk_output/    Generated chunks
-    config.py        Input and output paths
-    main.py          Chunking entry point
+    processing/
+        load_blocks.py
+        chunking/
+            create_chunks.py
+
+    output/
+    chunk_output/
+    config.py
+    main.py
+    requirements.txt
 ```
 
 ## Setup
-
-### 1. Install dependencies
 
 ```bash
 cd chunking
 pip install -r requirements.txt
 ```
 
-### 2. Run chunking
+## Run
 
-To process all extracted pages:
+Process all extracted pages:
 
 ```bash
 python main.py
 ```
 
-The script automatically reads from:
+The chunker reads extracted website content from:
 
 ```text
 ../extraction/extraction_output
 ```
 
-A specific extracted page folder or file can also be passed to `main.py`.
+Generated chunks are saved to:
 
-## Output
+```text
+chunk_output/
+```
 
-The generated chunk files are stored under `chunk_output`. These files are used by the ingestion stage to create embeddings and populate OpenSearch.
+Each page receives a `chunks.txt` file which is later used by the ingestion pipeline to generate embeddings and index the content in OpenSearch.
