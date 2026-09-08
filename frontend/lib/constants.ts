@@ -13,8 +13,8 @@ export const guestRegex = /^guest-\d+$/;
 export const DUMMY_PASSWORD = generateDummyPassword();
 
 export const suggestions = [
-  "What is the company vision of the Asiri Hospital",
-  "what is the company revenue of the Durdans year 2025",
-  "Who is the CEO of the LankaHospitals",
-  "",
+  "Can I book a doctor appointment for the same day?",
+  "Where is Nawaloka Hospital located?",
+  "Is Nawaloka Hospital's emergency service available 24/7?",
+  "Can I reserve a hospital room online?",
 ];

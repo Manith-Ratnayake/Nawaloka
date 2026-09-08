@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How can I book a doctor appointment at Nawaloka Hospital?",
+    "answer": "You can book a doctor appointment online through Nawaloka Hospital's channeling service. Choose your preferred specialist, select a suitable date and time, and confirm the appointment. You can also contact the channeling desk on +94 11 557 7111."
+  },
+  {
+    "question": "Can I book a doctor appointment for the same day?",
+    "answer": "Yes. Same-day appointments are available for selected specialists, depending on doctor availability."
+  },
+  {
+    "question": "What information do I need to book a doctor?",
+    "answer": "You will generally need the patient's basic details, the preferred specialist, and the preferred appointment date."
+  },
+  {
+    "question": "Is Nawaloka Hospital's emergency service available 24/7?",
+    "answer": "Yes. Nawaloka Hospital's Emergency Department operates 24 hours a day, 7 days a week. For a life-threatening emergency or ambulance assistance, call +94 77 951 1929."
+  },
+  {
+    "question": "How can I book a laboratory test online?",
+    "answer": "Search for the required laboratory test, select it, choose a preferred date, enter the patient details, upload a referral if required, and confirm the booking before proceeding to payment."
+  },
+  {
+    "question": "Can I reserve a hospital room online?",
+    "answer": "Yes. You can submit an online room reservation request with your preferred room category, expected admission date, and contact details. The admissions team will contact you to confirm availability."
+  },
+  {
+    "question": "Does submitting a room reservation guarantee a room?",
+    "answer": "No. A reservation request does not guarantee room availability. The admissions team must confirm availability before the booking is finalized."
+  },
+  {
+    "question": "Can I book hospital services such as MRI or CT scans online?",
+    "answer": "Yes. Nawaloka Hospital allows online service reservations. Select the required service, choose a preferred date and time slot, enter your details, upload a prescription when necessary, and submit the request. The hospital will contact you to confirm the exact appointment time."
+  },
+  {
+    "question": "Can I make payments online?",
+    "answer": "Yes. Nawaloka Hospital provides online payment options for inpatient payments, service bookings such as MRI and CT, and laboratory testing payments."
+  },
+  {
+    "question": "Where is Nawaloka Hospital located?",
+    "answer": "Nawaloka Hospitals PLC is located in Colombo 02, Sri Lanka, with convenient access from central Colombo and surrounding areas."
+  }
+]

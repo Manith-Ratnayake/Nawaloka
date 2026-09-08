@@ -5,11 +5,16 @@ import re
 from core.clients import get_dashscope_async_client, get_gateway_async_client
 from core.prompts import load_prompt
 from core.settings import settings
+from cache.redis import seed_faqs, check_faq_cache
 from database.query import execute_select, validate_select_sql
 from rag.context import build_context
 from rag.embedding import create_embedding
 from rag.reranker import rerank_chunks
 from rag.retrieval import retrieve_chunks
+
+
+# ── Seed FAQ cache on startup ─────────────────────────────────────────
+seed_faqs(embedder=create_embedding)
 
 
 # ── LLM helpers ──────────────────────────────────────────────────────
@@ -276,6 +281,18 @@ async def run_pipeline_stream(message: str, model_id: str):
         raise ValueError("Model cannot be empty")
 
     debug_trace = {}
+
+    # ── Cache check ───────────────────────────────────────────────────
+    query_embedding = await asyncio.to_thread(create_embedding, message)
+    cached_answer = check_faq_cache(query_embedding)
+    if cached_answer:
+        yield {
+            "phase": "done",
+            "answer": cached_answer,
+            "debug": {"cache": "hit"},
+        }
+        return
+    # ── End cache check ───────────────────────────────────────────────
 
     # Step 1: Route
     yield {

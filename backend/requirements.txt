@@ -7,3 +7,4 @@ PyYAML
 requests
 SQLAlchemy
 psycopg[binary]
+upstash-redis
