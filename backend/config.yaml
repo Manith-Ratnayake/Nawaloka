@@ -1,6 +1,5 @@
 dashscope:
   base_url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
-  rerank_url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/reranks"
 
 opensearch:
   index: "nawaloka"
