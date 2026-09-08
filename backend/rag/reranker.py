@@ -1,6 +1,5 @@
 import re
-
-import cohere
+import requests
 from core.settings import settings
 
 
@@ -14,13 +13,11 @@ def strip_html(text: str) -> str:
 def get_document_text(result: dict) -> str:
     source = result.get("_source", {})
 
-    # Try clean text fields first, then fall back to raw_content (HTML stripped)
     for field in ("content", "search_text", "source_text", "text", "markdown"):
         value = source.get(field)
         if isinstance(value, str) and value.strip():
             return value.strip()
 
-    # Fallback: strip HTML from raw_content
     raw = source.get("raw_content")
     if isinstance(raw, str) and raw.strip():
         return strip_html(raw)
@@ -29,8 +26,8 @@ def get_document_text(result: dict) -> str:
 
 
 def rerank_chunks(query: str, search_results: list[dict], top_n: int | None = None) -> list[dict]:
-    if not settings.cohere_api_key:
-        print("[Reranker] COHERE_API_KEY not set, skipping rerank")
+    if not settings.dashscope_api_key:
+        print("[Reranker] DASHSCOPE_API_KEY not set, skipping rerank")
         return search_results
 
     candidates = []
@@ -43,24 +40,41 @@ def rerank_chunks(query: str, search_results: list[dict], top_n: int | None = No
         print("[Reranker] No candidates with text, returning empty")
         return []
 
-    documents = [c["text"] for c in candidates]
+    documents = [{"content": c["text"]} for c in candidates]
     top_n = min(top_n or settings.rerank_top_n, len(documents))
 
-    print(f"[Reranker] Sending {len(documents)} docs to reranker, top_n={top_n}")
+    print(f"[Reranker] Sending {len(documents)} docs to DashScope reranker, top_n={top_n}")
 
     try:
-        co = cohere.ClientV2(settings.cohere_api_key)
-        response = co.rerank(
-            model="rerank-v3.5",
-            query=query.strip(),
-            documents=documents,
-            top_n=top_n,
+        response = requests.post(
+            settings.dashscope_rerank_url,
+            headers={
+                "Authorization": f"Bearer {settings.dashscope_api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": settings.rerank_model,
+                "input": {
+                    "query": query.strip(),
+                    "documents": documents,
+                },
+                "parameters": {
+                    "top_n": top_n,
+                    "return_documents": False,
+                },
+            },
+            timeout=10,
         )
+        response.raise_for_status()
+        data = response.json()
+
+        results_list = data.get("output", {}).get("results", [])
 
         reranked = []
-        for item in response.results:
-            result = dict(candidates[item.index]["result"])
-            result["rerank_score"] = item.relevance_score
+        for item in results_list:
+            idx = item["index"]
+            result = dict(candidates[idx]["result"])
+            result["rerank_score"] = item["relevance_score"]
             reranked.append(result)
 
         print(f"[Reranker] Returned {len(reranked)} reranked chunks")
