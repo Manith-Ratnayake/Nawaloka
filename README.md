@@ -13,6 +13,11 @@ Frontend: https://nawaloka-hazel.vercel.app/
 Backend API: https://nawaloka-production.up.railway.app/
 
 
+useremail : manithbbratnayake@gmail.com
+password : PerfLog55
+
+if any problem use this credential
+
 
 ## How the project works
 
