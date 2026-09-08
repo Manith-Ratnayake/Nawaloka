@@ -10,7 +10,7 @@ embedding:
   dimension: 1024
 
 retrieval:
-  top_k: 8
+  top_k: 7
 
 reranker:
   model: "qwen3-rerank"
