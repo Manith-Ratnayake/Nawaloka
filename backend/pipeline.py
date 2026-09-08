@@ -207,7 +207,7 @@ async def sql_search(question: str) -> tuple[str, dict]:
 # ── Step 4: Answer ───────────────────────────────────────────────────
 
 async def generate_answer(message: str, model_id: str, vector_context: str, sql_context: str) -> str:
-    client = get_gateway_async_client()
+    client = get_dashscope_async_client()  # was get_gateway_async_client()
 
     evidence_parts = []
     if vector_context:
@@ -218,7 +218,7 @@ async def generate_answer(message: str, model_id: str, vector_context: str, sql_
     evidence = "\n\n".join(evidence_parts) if evidence_parts else "No information was found from either source."
 
     user_input = f"User question:\n{message}\n\nEvidence:\n{evidence}"
-    return await llm_call(client, model_id, load_prompt("answer.txt"), user_input)
+    return await llm_call(client, "qwen-plus", load_prompt("answer.txt"), user_input)
 
 
 # ── Pipeline ─────────────────────────────────────────────────────────
