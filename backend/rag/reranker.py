@@ -1,7 +1,6 @@
 import re
 
-import requests
-
+import cohere
 from core.settings import settings
 
 
@@ -30,8 +29,8 @@ def get_document_text(result: dict) -> str:
 
 
 def rerank_chunks(query: str, search_results: list[dict], top_n: int | None = None) -> list[dict]:
-    if not settings.dashscope_api_key:
-        print("[Reranker] DASHSCOPE_API_KEY not set, skipping rerank")
+    if not settings.cohere_api_key:
+        print("[Reranker] COHERE_API_KEY not set, skipping rerank")
         return search_results
 
     candidates = []
@@ -44,41 +43,24 @@ def rerank_chunks(query: str, search_results: list[dict], top_n: int | None = No
         print("[Reranker] No candidates with text, returning empty")
         return []
 
-    documents = [candidate["text"] for candidate in candidates]
+    documents = [c["text"] for c in candidates]
     top_n = min(top_n or settings.rerank_top_n, len(documents))
 
     print(f"[Reranker] Sending {len(documents)} docs to reranker, top_n={top_n}")
 
     try:
-        response = requests.post(
-            settings.dashscope_rerank_url,
-            headers={"Authorization": f"Bearer {settings.dashscope_api_key}", "Content-Type": "application/json"},
-            json={
-                "model": settings.rerank_model,
-                "input": {                          # ← wrap in "input"
-                    "query": query.strip(),
-                    "documents": documents,
-                },
-                "parameters": {                     # ← move top_n here
-                    "top_n": top_n,
-                    "return_documents": False,
-                },
-            },
-            timeout=30,
+        co = cohere.ClientV2(settings.cohere_api_key)
+        response = co.rerank(
+            model="rerank-v3.5",
+            query=query.strip(),
+            documents=documents,
+            top_n=top_n,
         )
 
-        if not response.ok:
-            print(f"[Reranker] API failed: {response.status_code} {response.text[:200]}")
-            # Fallback: return candidates without reranking instead of failing
-            return [c["result"] for c in candidates[:top_n]]
-
         reranked = []
-        for item in response.json().get("results", []):
-            index = item.get("index")
-            if not isinstance(index, int) or not 0 <= index < len(candidates):
-                continue
-            result = dict(candidates[index]["result"])
-            result["rerank_score"] = item.get("relevance_score")
+        for item in response.results:
+            result = dict(candidates[item.index]["result"])
+            result["rerank_score"] = item.relevance_score
             reranked.append(result)
 
         print(f"[Reranker] Returned {len(reranked)} reranked chunks")
@@ -86,5 +68,4 @@ def rerank_chunks(query: str, search_results: list[dict], top_n: int | None = No
 
     except Exception as e:
         print(f"[Reranker] Exception: {e}, falling back to unranked results")
-        # Graceful fallback: return top candidates without reranking
         return [c["result"] for c in candidates[:top_n]]

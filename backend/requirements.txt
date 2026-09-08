@@ -9,3 +9,4 @@ SQLAlchemy
 psycopg[binary]
 upstash-redis
 mem0ai
+cohere
